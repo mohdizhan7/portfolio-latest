@@ -5,7 +5,7 @@
   "author": "Mohammed Izhan Shaikh",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "npx http-server -p 3000 -c-1",
