@@ -575,114 +575,171 @@
     width: var(--pct);
   }
 
-  /* Experience - Service Card List Style (Left Coast) */
+  /* Experience — Smooth expand (GPU-accelerated) */
   .exp__list {
     display: flex;
     flex-direction: column;
-    gap: 60px;
-    border-top: none;
-    margin-top: 80px;
+    margin-top: 64px;
+    border-top: 1px solid rgba(251,251,251,0.1);
   }
 
   .exp__item {
-    padding: 40px;
-    background: rgba(251,251,251,0.03);
-    border: 1px solid rgba(251,251,251,0.1);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
     display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 48px;
-    align-items: flex-start;
-    overflow: hidden;
-  }
-
-  .exp__item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(251,251,251,0.08), transparent);
-    animation: scanLight 2s linear infinite;
+    grid-template-columns: auto 1fr;
+    border-bottom: 1px solid rgba(251,251,251,0.1);
+    cursor: pointer;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
+    transform: translateY(16px);
+    transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1),
+                transform 0.4s cubic-bezier(0.4,0,0.2,1),
+                background 0.2s;
   }
 
-  .exp__item:hover {
-    background: rgba(251,251,251,0.06);
-    border-color: rgba(251,251,251,0.2);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(251,251,251,0.1);
-  }
-
-  .exp__item:hover::before {
+  .exp__item.is-visible {
     opacity: 1;
+    transform: translateY(0);
+  }
+
+  .exp__item:nth-child(1) { transition-delay: 0.05s; }
+  .exp__item:nth-child(2) { transition-delay: 0.12s; }
+  .exp__item:nth-child(3) { transition-delay: 0.19s; }
+  .exp__item:nth-child(4) { transition-delay: 0.26s; }
+
+  .exp__item.is-expanded { background: rgba(251,251,251,0.03); }
+
+  /* Image wrapper — fixed size, clips the emoji */
+  .exp__image-wrap {
+    width: 80px;
+    margin: 20px 28px 20px 0;
+    will-change: width, margin;
+    transition: width 0.38s cubic-bezier(0.4,0,0.2,1),
+                margin 0.38s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .exp__item.is-expanded .exp__image-wrap {
+    width: 220px;
+    margin: 28px 36px 28px 0;
   }
 
   .exp__image {
-    width: 180px;
-    height: 180px;
-    background: rgba(251,251,251,0.05);
-    border: 1px solid rgba(251,251,251,0.15);
+    width: 100%;
+    aspect-ratio: 1;
+    background: rgba(251,251,251,0.06);
+    border: 1px solid rgba(251,251,251,0.1);
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 80px;
+    font-size: 36px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    flex-shrink: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: aspect-ratio, font-size, border-color;
+    transition: aspect-ratio 0.38s cubic-bezier(0.4,0,0.2,1),
+                font-size 0.38s cubic-bezier(0.4,0,0.2,1),
+                border-color 0.2s;
   }
 
-  .exp__item:hover .exp__image {
-    border-color: rgba(251,251,251,0.3);
-    transform: scale(1.04);
+  .exp__item.is-expanded .exp__image {
+    aspect-ratio: 4/3;
+    font-size: 72px;
+    border-color: rgba(251,251,251,0.2);
   }
 
+  /* Content */
   .exp__content {
-    padding-top: 8px;
+    padding: 20px 0;
+    min-width: 0;
+    transition: padding 0.38s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .exp__item.is-expanded .exp__content { padding: 28px 0; }
+
+  .exp__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
   }
 
   .exp__title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.2;
-  }
-
-  .exp__company {
-    font-size: 12px;
-    color: rgba(251,251,251,0.4);
-    margin-bottom: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: clamp(18px, 2.4vw, 28px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .exp__period {
-    font-size: 12px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: rgba(251,251,251,0.35);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .exp__company {
+    font-size: 11px;
     color: rgba(251,251,251,0.4);
-    margin-bottom: 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 6px;
   }
 
-  .exp__description {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(251,251,251,0.5);
-    margin-top: 12px;
-    max-height: 0;
+  /* Expanded detail — grid 0fr trick for smooth height */
+  .exp__expand {
+    display: grid;
+    grid-template-rows: 0fr;
+    will-change: grid-template-rows;
+    transition: grid-template-rows 0.38s cubic-bezier(0.4,0,0.2,1);
+    margin-top: 0;
+  }
+
+  .exp__item.is-expanded .exp__expand {
+    grid-template-rows: 1fr;
+    margin-top: 16px;
+  }
+
+  .exp__expand-inner {
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s cubic-bezier(0.4,0,0.2,1) 0.1s,
+                transform 0.25s cubic-bezier(0.4,0,0.2,1) 0.1s;
   }
 
-  .exp__item:hover .exp__description {
-    max-height: 100px;
+  .exp__item.is-expanded .exp__expand-inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .exp__expand-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.35);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .exp__expand-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(251,251,251,0.6);
+  }
+
+  .exp__expand-highlight {
+    background: rgba(251,251,251,0.06);
+    border: 1px solid rgba(251,251,251,0.1);
+    border-radius: 4px;
+    padding: 12px 16px;
+  }
+
+  @media (max-width: 768px) {
+    .exp__item.is-expanded .exp__image { width: 120px; height: 120px; font-size: 56px; }
+    .exp__expand { grid-template-columns: 1fr; }
+    .exp__period { display: none; }
   }
 
   /* Projects - Timeline Card Layout (Left Coast Style) */
@@ -1384,45 +1441,91 @@
     <div class="label reveal">Work</div>
     <h2 class="reveal">History.</h2>
     <div class="exp__list">
-      <div class="exp__item reveal" onclick="openModal('stackbox')">
-        <div class="exp__image">📦</div>
+
+      <div class="exp__item" onclick="openModal('stackbox')">
+        <div class="exp__image-wrap"><div class="exp__image">📦</div></div>
         <div class="exp__content">
-          <h3 class="exp__title">Assistant Project Manager</h3>
+          <div class="exp__header">
+            <h3 class="exp__title">Assistant Project Manager</h3>
+            <span class="exp__period">Sep 2023 — Present</span>
+          </div>
           <div class="exp__company">StackBOX</div>
-          <div class="exp__period">Sep 2023 — Present</div>
-          <p class="exp__description">Leading product and solution design for warehouse management platforms. Architecting end-to-end solutions for enterprises scaling their supply chain operations.</p>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">WMS implementations for P&G, ITC, and Nestlé. Warehouse layouts, hardware planning, system config, and go-live.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">Currently</span>
+              <p class="exp__expand-text">PTL rollout across 50+ sites in the Philippines — sole implementation lead.</p>
+            </div>
+          </div></div>
         </div>
       </div>
 
-      <div class="exp__item reveal" onclick="openModal('edgistify')">
-        <div class="exp__image">🏭</div>
+      <div class="exp__item" onclick="openModal('edgistify')">
+        <div class="exp__image-wrap"><div class="exp__image">🏭</div></div>
         <div class="exp__content">
-          <h3 class="exp__title">Manager, Solution Design</h3>
+          <div class="exp__header">
+            <h3 class="exp__title">Manager, Solution Design</h3>
+            <span class="exp__period">Aug 2022 — Sep 2023</span>
+          </div>
           <div class="exp__company">Edgistify</div>
-          <div class="exp__period">Aug 2022 — Sep 2023</div>
-          <p class="exp__description">Designed and delivered supply chain solutions for 3PL and e-commerce clients. Led implementation across 12+ warehouses with 5 concurrent go-lives.</p>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">End-to-end supply chain solution design for 3PL and e-commerce clients. BRD, UAT, and go-live across 12+ warehouses.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">Outcome</span>
+              <p class="exp__expand-text">25% avg productivity uplift. 5 concurrent go-lives. 18% reduction in implementation cost.</p>
+            </div>
+          </div></div>
         </div>
       </div>
 
-      <div class="exp__item reveal" onclick="openModal('mindseed')">
-        <div class="exp__image">📊</div>
+      <div class="exp__item" onclick="openModal('mindseed')">
+        <div class="exp__image-wrap"><div class="exp__image">📊</div></div>
         <div class="exp__content">
-          <h3 class="exp__title">Manager, Procurement & Supply Chain</h3>
+          <div class="exp__header">
+            <h3 class="exp__title">Manager, Procurement & Supply Chain</h3>
+            <span class="exp__period">Dec 2021 — Aug 2022</span>
+          </div>
           <div class="exp__company">Mindseed Education</div>
-          <div class="exp__period">Dec 2021 — Aug 2022</div>
-          <p class="exp__description">Built supply chain operations from scratch for an edtech startup. Scaled to 50+ cities with 8,000+ SKUs across distribution hubs.</p>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">Built centralised procurement from scratch. Renegotiated 45+ vendor contracts, standardised SKUs, built real-time spend tracker.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">Outcome</span>
+              <p class="exp__expand-text">~15% cost savings. Procurement now scales with the business instead of firefighting.</p>
+            </div>
+          </div></div>
         </div>
       </div>
 
-      <div class="exp__item reveal" onclick="openModal('dtdc')">
-        <div class="exp__image">🚚</div>
+      <div class="exp__item" onclick="openModal('dtdc')">
+        <div class="exp__image-wrap"><div class="exp__image">🚚</div></div>
         <div class="exp__content">
-          <h3 class="exp__title">Branch Manager</h3>
+          <div class="exp__header">
+            <h3 class="exp__title">Branch Manager</h3>
+            <span class="exp__period">Jan 2020 — Dec 2021</span>
+          </div>
           <div class="exp__company">DTDC Express</div>
-          <div class="exp__period">Jan 2020 — Dec 2021</div>
-          <p class="exp__description">Managed branch operations for India's largest express courier network. Built crisis response protocols and cleared 150K shipment backlog in 7 days.</p>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">50 staff, 70 vehicles, 60K shipments/day. One of the youngest branch managers in the DTDC network.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">The Crisis</span>
+              <p class="exp__expand-text">Built an alternative last-mile network in 48h during COVID. Cleared 150K backlog in 7 days. 98% on-time delivery.</p>
+            </div>
+          </div></div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1971,6 +2074,30 @@
       el.classList.add('is-visible');
       observer.unobserve(el);
     }
+  });
+
+  // Staggered slide-in for exp items
+  const expObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        expObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.exp__item').forEach(el => expObs.observe(el));
+
+  // Expand on hover using JS to avoid flicker from layout shift
+  document.querySelectorAll('.exp__item').forEach(el => {
+    let timer;
+    el.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      el.classList.add('is-expanded');
+    });
+    el.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => el.classList.remove('is-expanded'), 80);
+    });
   });
 
   // Smooth scroll for nav links
