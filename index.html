@@ -1860,18 +1860,6 @@
     scrollBar.style.transform = `scaleX(${progress})`;
   }, { passive: true });
 
-  // Parallax scroll effect on hero
-  const heroSection = document.querySelector('.hero');
-  window.addEventListener('scroll', () => {
-    if (heroSection) {
-      const scrollY = window.scrollY;
-      const heroRect = heroSection.getBoundingClientRect();
-      if (heroRect.top < window.innerHeight && heroRect.bottom > 0) {
-        const offset = scrollY * 0.5;
-        heroSection.style.transform = `translateY(${offset}px)`;
-      }
-    }
-  }, { passive: true });
 
   // Reveal observer
   const observerOptions = {
