@@ -751,171 +751,164 @@
     .exp__period { display: none; }
   }
 
-  /* Projects - Timeline Card Layout (Left Coast Style) */
+  /* Projects — Portrait cards, Left Coast hover */
   .projects__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: clamp(16px, 3vw, 32px);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
     margin-top: 80px;
-    position: relative;
   }
 
-  .projects__grid::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(251,251,251,0.1);
-    z-index: 0;
-  }
-
-  @media (max-width: 1200px) {
-    .projects__grid {
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    }
-  }
-
-  @media (max-width: 768px) {
-    .projects__grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-    .projects__grid::before {
-      display: none;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .projects__grid {
-      grid-template-columns: 1fr;
-    }
-  }
+  @media (max-width: 1024px) { .projects__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .projects__grid { grid-template-columns: 1fr; } }
 
   .project {
-    min-height: clamp(300px, 40vw, 450px);
+    height: clamp(360px, 38vw, 500px);
     background: rgba(251,251,251,0.04);
-    border: 1px solid rgba(251,251,251,0.15);
+    border: 1px solid rgba(251,251,251,0.1);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(20px, 5vw, 32px);
+    justify-content: space-between;
+    padding: 28px;
     cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
-    z-index: 1;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     overflow: hidden;
-  }
-
-  .project:nth-child(1) { animation-delay: 0.1s; }
-  .project:nth-child(2) { animation-delay: 0.2s; }
-  .project:nth-child(3) { animation-delay: 0.3s; }
-  .project:nth-child(4) { animation-delay: 0.4s; }
-
-  .project::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(251,251,251,0.08), transparent);
-    animation: scanLight 2s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .project:hover::after {
-    opacity: 1;
+    transition: border-color 0.35s, transform 0.35s cubic-bezier(0.4,0,0.2,1);
   }
 
   .project:hover {
-    background: rgba(251,251,251,0.08);
     border-color: rgba(251,251,251,0.3);
-    transform: translateY(-12px);
-    box-shadow: 0 30px 60px rgba(251,251,251,0.15);
+    transform: translateY(-6px);
   }
 
-  .project-number {
-    font-size: clamp(40px, 8vw, 72px);
-    font-weight: 700;
-    color: rgba(251,251,251,0.2);
-    line-height: 1;
-    margin-bottom: clamp(16px, 3vw, 24px);
-  }
-
-  .project__content {
-    text-align: center;
+  /* Cover image — hidden by default, zooms in on hover */
+  .project__cover {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 12px;
     opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+    z-index: 0;
   }
 
-  .project:hover .project__content {
-    opacity: 1;
-    max-height: 500px;
-    pointer-events: auto;
+  .project__cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
   }
 
-  .project__image {
+  .project__cover img {
     width: 100%;
-    height: clamp(120px, 25vw, 200px);
-    background: rgba(251,251,251,0.08);
-    border: 1px solid rgba(251,251,251,0.2);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: clamp(50px, 12vw, 80px);
-    overflow: hidden;
-    position: relative;
-    margin-bottom: clamp(12px, 2vw, 16px);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.08);
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
   }
 
-  .project:hover .project__image {
-    border-color: rgba(251,251,251,0.4);
-    transform: scale(1.03);
+  .project:hover .project__cover {
+    opacity: 1;
+  }
+
+  .project:hover .project__cover img {
+    transform: scale(1);
+  }
+
+  /* Number — top left, fades out on hover */
+  .project-number {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    color: rgba(251,251,251,0.18);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.25s, color 0.25s;
+  }
+
+  .project:hover .project-number {
+    opacity: 0;
+  }
+
+  /* Bottom content */
+  .project__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .project:hover .project__bottom {
+    transform: translateY(-8px);
+  }
+
+  .project__icon {
+    font-size: 26px;
+    line-height: 1;
+    transition: opacity 0.25s;
+  }
+
+  .project:hover .project__icon {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
   }
 
   .project__title {
-    font-size: 18px;
+    font-size: clamp(16px, 2vw, 22px);
     font-weight: 700;
-    margin-bottom: 12px;
     line-height: 1.2;
+    letter-spacing: -0.01em;
     color: #fbfbfb;
   }
 
   .project__subtitle {
-    font-size: 13px;
-    color: rgba(251,251,251,0.6);
+    font-size: 12px;
+    color: rgba(251,251,251,0.45);
     line-height: 1.5;
-    margin-bottom: 16px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.3s cubic-bezier(0.4,0,0.2,1) 0.05s;
   }
 
-  .project__meta-list {
-    list-style: none;
+  .project:hover .project__subtitle {
+    max-height: 60px;
+    opacity: 1;
+  }
+
+  .project__tags {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.3s cubic-bezier(0.4,0,0.2,1) 0.1s;
   }
 
-  .project__meta-item {
-    font-size: 11px;
-    color: rgba(251,251,251,0.5);
-    display: flex;
-    gap: 8px;
+  .project:hover .project__tags {
+    max-height: 60px;
+    opacity: 1;
   }
 
-  .project__meta-item::before {
-    content: '→';
-    color: rgba(251,251,251,0.3);
+  .project__tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    border: 1px solid rgba(251,251,251,0.35);
+    border-radius: 2px;
+    color: rgba(251,251,251,0.7);
   }
 
   /* Skills */
@@ -1546,59 +1539,60 @@
     <h2 class="reveal">Case studies.</h2>
     <div class="projects__grid">
       <div class="project reveal" onclick="openModal('hul')">
-        <div class="project-number">01</div>
-        <div class="project__content">
+        <div class="project__cover"><img src="project-covers/hul-samadhan.png" alt="HUL Samadhan" /></div>
+        <div class="project-number">01.</div>
+        <div class="project__bottom">
+          <div class="project__icon">📦</div>
           <h3 class="project__title">HUL Samadhan</h3>
-          <p class="project__subtitle">Warehouse automation UAT & go-live across 3 major distribution hubs. Automated sortation, picking, and packing workflows.</p>
-          <ul class="project__meta-list">
-            <li class="project__meta-item">40% Throughput Increase</li>
-            <li class="project__meta-item">3 Warehouses Deployed</li>
-            <li class="project__meta-item">Zero Downtime Launch</li>
-          </ul>
+          <p class="project__subtitle">Warehouse automation UAT & go-live</p>
+          <div class="project__tags">
+            <span class="project__tag">WMS</span>
+            <span class="project__tag">UAT</span>
+            <span class="project__tag">PTL</span>
+          </div>
         </div>
-        <div class="project__image">📦</div>
       </div>
 
       <div class="project reveal" onclick="openModal('25')">
-        <div class="project-number">02</div>
-        <div class="project__content">
+        <div class="project__cover"><img src="project-covers/25-percent.png" alt="The 25% Project" /></div>
+        <div class="project-number">02.</div>
+        <div class="project__bottom">
+          <div class="project__icon">📈</div>
           <h3 class="project__title">The 25% Project</h3>
-          <p class="project__subtitle">Picking workflow redesign through process optimization and batching algorithm improvements. Reduced pick cycle time by 25%.</p>
-          <ul class="project__meta-list">
-            <li class="project__meta-item">25% Productivity Gain</li>
-            <li class="project__meta-item">160 Additional Picks/Shift</li>
-            <li class="project__meta-item">ROI in 90 Days</li>
-          </ul>
+          <p class="project__subtitle">Picking workflow redesign</p>
+          <div class="project__tags">
+            <span class="project__tag">Process</span>
+            <span class="project__tag">Analytics</span>
+          </div>
         </div>
-        <div class="project__image">📈</div>
       </div>
 
       <div class="project reveal" onclick="openModal('ph')">
-        <div class="project-number">03</div>
-        <div class="project__content">
+        <div class="project__cover"><img src="project-covers/ph-rollout.png" alt="PH Rollout" /></div>
+        <div class="project-number">03.</div>
+        <div class="project__bottom">
+          <div class="project__icon">🎯</div>
           <h3 class="project__title">PH Rollout</h3>
-          <p class="project__subtitle">Multi-warehouse PTL (Pick-to-Light) implementation across 8 locations. Synchronized go-live without operational spillover.</p>
-          <ul class="project__meta-list">
-            <li class="project__meta-item">8 Warehouses Synced</li>
-            <li class="project__meta-item">99.2% Pick Accuracy</li>
-            <li class="project__meta-item">18% Faster Fulfillment</li>
-          </ul>
+          <p class="project__subtitle">Multi-warehouse PTL, Philippines</p>
+          <div class="project__tags">
+            <span class="project__tag">PTL</span>
+            <span class="project__tag">Training</span>
+          </div>
         </div>
-        <div class="project__image">🎯</div>
       </div>
 
       <div class="project reveal" onclick="openModal('backlog')">
-        <div class="project-number">04</div>
-        <div class="project__content">
+        <div class="project__cover"><img src="project-covers/backlog.png" alt="The Backlog" /></div>
+        <div class="project-number">04.</div>
+        <div class="project__bottom">
+          <div class="project__icon">⚡</div>
           <h3 class="project__title">The Backlog</h3>
-          <p class="project__subtitle">Crisis operations during COVID-19. Built alternative last-mile network in 48 hours and cleared 150K shipment backlog in 7 days.</p>
-          <ul class="project__meta-list">
-            <li class="project__meta-item">150K Shipments Cleared</li>
-            <li class="project__meta-item">98% On-Time Delivery</li>
-            <li class="project__meta-item">Network Case Study</li>
-          </ul>
+          <p class="project__subtitle">Crisis ops: 150K in 7 days</p>
+          <div class="project__tags">
+            <span class="project__tag">Last-Mile</span>
+            <span class="project__tag">Crisis Ops</span>
+          </div>
         </div>
-        <div class="project__image">⚡</div>
       </div>
     </div>
   </div>
