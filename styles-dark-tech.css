@@ -1,0 +1,275 @@
+/* =============================================================
+   IZHAN SHAIKH — Dark Tech / Neon Portfolio
+   Deep navy/black + neon cyan (#00d4ff) & magenta (#e94560)
+   Glassmorphism, animated grid, data-dense layouts
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Syne:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-0: #0a0e27;      /* deepest */
+  --bg-1: #0f1530;      /* card bg */
+  --bg-2: #151d3b;      /* elevated */
+  --bg-3: #1a2250;      /* hover */
+  
+  --fg-0: #ffffff;      /* primary text */
+  --fg-1: #e0e6ff;      /* secondary */
+  --fg-2: #8892b0;      /* muted */
+  
+  --accent-cyan: #00d4ff;
+  --accent-mag: #e94560;
+  --accent-purple: #a855f7;
+  --accent-green: #10b981;
+  
+  --glass-bg: rgba(15, 21, 48, 0.5);
+  --glass-border: rgba(0, 212, 255, 0.1);
+  
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(233, 69, 96, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: radialShift 20s ease-in-out infinite;
+}
+
+@keyframes radialShift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(100px, -100px); }
+}
+
+section {
+  position: relative;
+  z-index: 2;
+  padding: 120px 48px;
+}
+
+.container { max-width: 1400px; margin: 0 auto; }
+.container--narrow { max-width: 960px; margin: 0 auto; }
+
+::selection {
+  background: var(--accent-cyan);
+  color: var(--bg-0);
+}
+
+a { color: var(--accent-cyan); text-decoration: none; transition: color 0.3s var(--ease); }
+a:hover { color: var(--accent-mag); }
+
+/* Typography */
+.serif { font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: -0.03em; }
+.mono { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; }
+
+/* Glass card base */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+/* Code snippet style */
+.code-line {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--fg-2);
+  letter-spacing: 0.02em;
+}
+
+/* Glow effects */
+.glow-cyan {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 0 40px rgba(0, 212, 255, 0.2);
+}
+
+.glow-mag {
+  text-shadow: 0 0 20px rgba(233, 69, 96, 0.5), 0 0 40px rgba(233, 69, 96, 0.2);
+}
+
+/* Animated underline */
+.underline-anim {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-anim::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-mag));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.underline-anim:hover::after {
+  transform: scaleX(1);
+}
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll progress with neon gradient */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.scroll-progress__bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-mag), var(--accent-purple));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 0.05s linear;
+  box-shadow: 0 0 20px var(--accent-cyan);
+}
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.cursor--hover {
+  width: 50px;
+  height: 50px;
+  border-color: var(--accent-mag);
+  box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+}
+
+.cursor--text {
+  width: 2px;
+  height: 24px;
+  border-radius: 1px;
+}
+
+@media (hover: none) {
+  .cursor { display: none; }
+}
+
+/* Nav */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(10, 14, 39, 0.8), transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+.nav__mark {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  glow: text;
+}
+
+.nav__mark span {
+  color: var(--accent-mag);
+}
+
+.nav__links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav__links a {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  position: relative;
+  padding: 4px 0;
+}
+
+.nav__links a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-mag));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.nav__links a:hover::before {
+  transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 16px 20px; }
+  .nav__links { gap: 16px; font-size: 9px; }
+}

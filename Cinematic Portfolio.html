@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Technologist | Portfolio</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0c0d19;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* ===== ANIMATIONS (from Left Coast) ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scanLight {
+            from {
+                transform: translate(-120%) skew(-20deg);
+            }
+            to {
+                transform: translate(120%) skew(-20deg);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -100% top;
+            }
+            100% {
+                background-position: 250% top;
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Animation utilities */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.37, 0.55, 0.86, 0.88) forwards;
+        }
+
+        .animate-scan-light {
+            animation: scanLight 1.5s linear infinite;
+        }
+
+        .animate-shimmer {
+            animation: shimmer 3s infinite;
+            background-size: 200% 200%;
+            background-position: -100% top;
+        }
+
+        .animate-slide-left {
+            animation: slideInFromLeft 0.8s ease-out forwards;
+        }
+
+        .animate-slide-right {
+            animation: slideInFromRight 0.8s ease-out forwards;
+        }
+
+        /* Staggered animation delays */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+
+        /* ===== LAYOUT & SPACING ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        section:nth-child(odd) {
+            background: #0c0d19;
+        }
+
+        section:nth-child(even) {
+            background: #f5f5f5;
+            color: #0c0d19;
+        }
+
+        section:nth-child(even) h2,
+        section:nth-child(even) h3,
+        section:nth-child(even) .label {
+            color: #0c0d19;
+        }
+
+        section:nth-child(even) p {
+            color: rgba(12, 13, 25, 0.7);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 48px;
+            color: #ffffff;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 16px;
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7a59ff;
+            margin-bottom: 12px;
+        }
+
+        /* ===== HERO SECTION ===== */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0c0d19 0%, #1a1b2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-content h1 {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 48px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 48px;
+            background: #7a59ff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            background: #6a4fe8;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(122, 89, 255, 0.3);
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 48px;
+            background: rgba(12, 13, 25, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(122, 89, 255, 0.1);
+        }
+
+        nav .logo {
+            font-weight: 700;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 48px;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #7a59ff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #7a59ff;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== WORK HISTORY ===== */
+        .work-history {
+            display: grid;
+            gap: 32px;
+        }
+
+        .work-card {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(122, 89, 255, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(122, 89, 255, 0.1), transparent);
+            animation: scanLight 2s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .work-card:hover {
+            background: rgba(122, 89, 255, 0.08);
+            border-color: rgba(122, 89, 255, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(122, 89, 255, 0.15);
+        }
+
+        .work-card:hover::before {
+            opacity: 1;
+        }
+
+        .work-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .work-card .company {
+            font-size: 14px;
+            color: #7a59ff;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .work-card .duration {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 16px;
+        }
+
+        .work-card p {
+            margin-bottom: 12px;
+        }
+
+        .work-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .work-card li {
+            padding-left: 20px;
+            margin-bottom: 8px;
+            position: relative;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .work-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #7a59ff;
+            font-weight: 600;
+        }
+
+        /* ===== PROJECTS GRID ===== */
+        .projects-grid {
+            display: grid;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .project-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .project-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .project-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .project-number {
+            font-size: 120px;
+            font-weight: 800;
+            color: rgba(122, 89, 255, 0.15);
+            line-height: 1;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 0;
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-content .label {
+            color: #7a59ff;
+        }
+
+        .project-image {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, rgba(122, 89, 255, 0.2), rgba(122, 89, 255, 0.05));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 60px rgba(122, 89, 255, 0.2);
+        }
+
+        /* ===== SKILLS ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-tag {
+            padding: 20px 24px;
+            background: rgba(122, 89, 255, 0.1);
+            border: 1px solid rgba(122, 89, 255, 0.3);
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out forwards;
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            background: rgba(122, 89, 255, 0.2);
+            transform: translateY(-4px);
+            border-color: rgba(122, 89, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(122, 89, 255, 0.15);
+        }
+
+        /* ===== ACHIEVEMENTS ===== */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .achievement-card {
+            padding: 32px;
+            background: rgba(122, 89, 255, 0.08);
+            border-left: 4px solid #7a59ff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(122, 89, 255, 0.15);
+        }
+
+        .achievement-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #7a59ff;
+        }
+
+        .achievement-card p {
+            font-size: 14px;
+        }
+
+        /* ===== CREDENTIALS ===== */
+        .credentials-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .credential-item {
+            padding: 20px 24px;
+            background: rgba(122, 89, 255, 0.05);
+            border: 1px solid rgba(122, 89, 255, 0.15);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .credential-item:hover {
+            background: rgba(122, 89, 255, 0.1);
+            border-color: rgba(122, 89, 255, 0.3);
+        }
+
+        .credential-item .title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .credential-item .issuer {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            padding: 16px 32px;
+            background: rgba(122, 89, 255, 0.1);
+            border: 1px solid rgba(122, 89, 255, 0.3);
+            border-radius: 4px;
+            color: #7a59ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .contact-link:hover {
+            background: #7a59ff;
+            color: #ffffff;
+            transform: translateY(-4px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            nav ul {
+                gap: 24px;
+            }
+
+            .project-item {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .project-item:nth-child(even) {
+                direction: ltr;
+            }
+
+            .project-number {
+                font-size: 60px;
+            }
+        }
+
+        /* Intersection Observer - fade in on scroll */
+        .fade-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">SUPPLY CHAIN</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Supply Chain Technologist</h1>
+            <p>Optimizing global logistics through data, automation, and strategic innovation</p>
+            <a href="#work" class="cta-button">Explore Work</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <span class="label">Who I Am</span>
+            <h2>About</h2>
+            <p>I'm a supply chain specialist with 10+ years driving digital transformation in logistics and operations. I combine technical expertise with strategic thinking to solve complex business challenges—from ERP implementations to data-driven optimization.</p>
+            <p>My focus: connecting people, process, and technology to unlock competitive advantage.</p>
+        </div>
+    </section>
+
+    <!-- Work History -->
+    <section id="work">
+        <div class="container">
+            <span class="label">Professional Journey</span>
+            <h2>Work History</h2>
+            <div class="work-history">
+                <div class="work-card stagger-1">
+                    <h3>Director of Supply Chain Operations</h3>
+                    <div class="company">Global Logistics Corp</div>
+                    <div class="duration">2020 – Present</div>
+                    <p>Led digital transformation of $500M+ supply chain across 12 countries. Built predictive analytics platform reducing logistics costs by 18%.</p>
+                    <ul>
+                        <li>Architected cloud-based inventory management system serving 50+ warehouses</li>
+                        <li>Implemented AI-driven demand forecasting (MAPE improved 34%)</li>
+                        <li>Managed $2.5M technology budget and cross-functional teams of 25+</li>
+                    </ul>
+                </div>
+
+                <div class="work-card stagger-2">
+                    <h3>Senior Supply Chain Analyst</h3>
+                    <div class="company">TechManufacturing Inc</div>
+                    <div class="duration">2016 – 2020</div>
+                    <p>Optimized procurement and warehouse operations, spearheading ERP migration from legacy systems.</p>
+                    <ul>
+                        <li>Reduced procurement cycle time by 45% through process automation</li>
+                        <li>Led SAP implementation supporting $300M annual procurement</li>
+                        <li>Developed KPI dashboards improving operational visibility across 8 facilities</li>
+                    </ul>
+                </div>
+
+                <div class="work-card stagger-3">
+                    <h3>Operations Coordinator</h3>
+                    <div class="company">Regional Distribution Hub</div>
+                    <div class="duration">2013 – 2016</div>
+                    <p>Managed daily logistics operations and continuous improvement initiatives.</p>
+                    <ul>
+                        <li>Achieved 99.2% order accuracy and reduced fulfillment time by 25%</li>
+                        <li>Trained 40+ staff on new WMS platform</li>
+                        <li>Implemented Lean Six Sigma methodologies saving $150K annually</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="container">
+            <span class="label">Case Studies</span>
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-item stagger-1">
+                    <div class="project-content">
+                        <span class="label">ERP Implementation</span>
+                        <h3>SAP S/4HANA Migration</h3>
+                        <p>Migrated legacy supply chain systems to cloud-native ERP serving 1,000+ users across 15 countries. Improved data accuracy by 98% and reduced month-end close time from 20 to 5 days.</p>
+                        <p><strong>Outcome:</strong> $5M cost avoidance, 35% faster reporting, real-time visibility.</p>
+                    </div>
+                    <div class="project-image" style="font-size: 64px;">📊</div>
+                    <div class="project-number">01</div>
+                </div>
+
+                <div class="project-item stagger-2">
+                    <div class="project-content">
+                        <span class="label">Analytics Platform</span>
+                        <h3>AI-Powered Demand Forecasting</h3>
+                        <p>Built predictive demand model using historical data and external signals (weather, holidays, market trends). Reduced inventory carrying costs by 22% while improving service levels to 96%.</p>
+                        <p><strong>Stack:</strong> Python, Scikit-learn, Power BI, Azure.</p>
+                    </div>
+                    <div class="project-image" style="font-size: 64px;">🤖</div>
+                    <div class="project-number">02</div>
+                </div>
+
+                <div class="project-item stagger-3">
+                    <div class="project-content">
+                        <span class="label">Process Optimization</span>
+                        <h3>Procurement Automation</h3>
+                        <p>Automated 60% of routine purchase orders using RPA and workflow rules. Cut procurement cycle time from 12 days to 3 days and improved vendor on-time performance by 28%.</p>
+                        <p><strong>Impact:</strong> 450 hours/year saved, 40% cost reduction in processing.</p>
+                    </div>
+                    <div class="project-image" style="font-size: 64px;">⚙️</div>
+                    <div class="project-number">03</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <span class="label">Expertise</span>
+            <h2>Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-tag stagger-1">Supply Chain Planning</div>
+                <div class="skill-tag stagger-2">SAP / ERP Systems</div>
+                <div class="skill-tag stagger-3">Data Analytics</div>
+                <div class="skill-tag stagger-4">Procurement</div>
+                <div class="skill-tag stagger-5">Logistics Optimization</div>
+                <div class="skill-tag stagger-1">Lean Six Sigma</div>
+                <div class="skill-tag stagger-2">Python / SQL</div>
+                <div class="skill-tag stagger-3">Tableau / Power BI</div>
+                <div class="skill-tag stagger-4">Cloud Platforms (Azure, AWS)</div>
+                <div class="skill-tag stagger-5">Team Leadership</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements">
+        <div class="container">
+            <span class="label">Recognition</span>
+            <h2>Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card stagger-1">
+                    <h4>🏆 Industry Award</h4>
+                    <p>2022 Supply Chain Innovation Excellence Award for digital transformation leadership</p>
+                </div>
+                <div class="achievement-card stagger-2">
+                    <h4>📈 Impact Metrics</h4>
+                    <p>$15M+ cost savings and 40% efficiency gains across 3 major implementations</p>
+                </div>
+                <div class="achievement-card stagger-3">
+                    <h4>👥 Team Leadership</h4>
+                    <p>Built and mentored high-performing teams of 25+ across distributed regions</p>
+                </div>
+                <div class="achievement-card stagger-4">
+                    <h4>🎓 Continuous Learning</h4>
+                    <p>Certified in Lean Six Sigma, SAP, and Advanced Supply Chain Analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credentials -->
+    <section id="credentials">
+        <div class="container">
+            <span class="label">Certifications</span>
+            <h2>Credentials</h2>
+            <div class="credentials-list">
+                <div class="credential-item stagger-1">
+                    <div class="title">Certified Supply Chain Professional (CSCP)</div>
+                    <div class="issuer">ASCM • 2021</div>
+                </div>
+                <div class="credential-item stagger-2">
+                    <div class="title">SAP Certified Associate - Demand Planning</div>
+                    <div class="issuer">SAP • 2020</div>
+                </div>
+                <div class="credential-item stagger-3">
+                    <div class="title">Lean Six Sigma Black Belt</div>
+                    <div class="issuer">American Society for Quality • 2019</div>
+                </div>
+                <div class="credential-item stagger-4">
+                    <div class="title">MBA, Operations & Supply Chain</div>
+                    <div class="issuer">State University • 2015</div>
+                </div>
+                <div class="credential-item stagger-5">
+                    <div class="title">Bachelor of Science, Business Administration</div>
+                    <div class="issuer">State University • 2012</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <span class="label">Get In Touch</span>
+            <h2>Let's Connect</h2>
+            <p>Interested in discussing supply chain strategy, technology solutions, or partnership opportunities?</p>
+            <div class="contact-links">
+                <a href="mailto:hello@example.com" class="contact-link">Email</a>
+                <a href="#" class="contact-link">LinkedIn</a>
+                <a href="#" class="contact-link">GitHub</a>
+                <a href="#" class="contact-link">Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll-triggered fade-in animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Apply observer to all work cards, project items, and other elements
+        document.querySelectorAll('.work-card, .project-item, .skill-tag, .achievement-card, .credential-item').forEach(el => {
+            el.classList.add('fade-on-scroll');
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

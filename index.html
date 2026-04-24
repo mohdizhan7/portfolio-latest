@@ -1,0 +1,1930 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mohammed Izhan Shaikh — Project Manager</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html, body {
+    background: #000000;
+    color: #fbfbfb;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    font-weight: 400;
+  }
+
+  a { color: #fbfbfb; text-decoration: none; }
+
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container { max-width: 1200px; width: 100%; margin: 0 auto; }
+  .container--narrow { max-width: 960px; }
+
+  /* Scroll progress */
+  .scroll-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #fbfbfb;
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    z-index: 200;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(251,251,251,0.1);
+  }
+  
+  .nav__mark {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  .nav__links {
+    display: flex;
+    gap: 48px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  
+  .nav__links a {
+    position: relative;
+    transition: opacity 0.3s;
+  }
+  
+  .nav__links a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: #fbfbfb;
+    transform: translateX(-50%);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .nav__links a:hover::after {
+    width: 100%;
+    left: 0;
+    transform: translateX(0);
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: #fbfbfb;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(12px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-12px);
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 99;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    padding: 120px 48px;
+  }
+
+  .mobile-menu.active {
+    display: flex;
+  }
+
+  .mobile-menu a {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s;
+  }
+
+  .mobile-menu a:hover {
+    opacity: 0.6;
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    background: none;
+    border: none;
+    color: #fbfbfb;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav__links {
+      display: none;
+    }
+  }
+
+  /* Tweaks */
+  .tweaks-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 400;
+    background: rgba(0,0,0,0.95);
+    border: 1px solid rgba(251,251,251,0.2);
+    padding: 24px;
+    border-radius: 4px;
+    width: 280px;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+  }
+
+  .tweaks-panel.active {
+    display: block;
+    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .tweaks-panel h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(251,251,251,0.1);
+    padding-bottom: 12px;
+  }
+
+  .tweaks-group {
+    margin-bottom: 16px;
+  }
+
+  .tweaks-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.5);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .tweaks-opts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tweaks-opt {
+    padding: 6px 10px;
+    border: 1px solid rgba(251,251,251,0.2);
+    background: transparent;
+    color: rgba(251,251,251,0.7);
+    cursor: pointer;
+    font-size: 10px;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .tweaks-opt:hover {
+    border-color: rgba(251,251,251,0.5);
+    color: #fbfbfb;
+  }
+
+  .tweaks-opt.active {
+    background: #fbfbfb;
+    color: #000;
+    border-color: #fbfbfb;
+  }
+
+  .tweaks-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: rgba(251,251,251,0.5);
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .tweaks-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 401;
+    background: #fbfbfb;
+    color: #000;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(251,251,251,0.1);
+  }
+
+  .tweaks-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  .tweaks-toggle.hide {
+    display: none;
+  }
+
+  /* Typography */
+  .label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.5);
+  }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  h1 {
+    font-size: clamp(72px, 15vw, 240px);
+  }
+
+  h2 {
+    font-size: clamp(48px, 8vw, 120px);
+  }
+
+  h3 {
+    font-size: 32px;
+  }
+
+  /* ===== LEFT COAST ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scanLight {
+    from { transform: translate(-120%) skew(-20deg); }
+    to { transform: translate(120%) skew(-20deg); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -100% top; }
+    100% { background-position: 250% top; }
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal:nth-child(1) { animation-delay: 0.05s; }
+  .reveal:nth-child(2) { animation-delay: 0.1s; }
+  .reveal:nth-child(3) { animation-delay: 0.15s; }
+  .reveal:nth-child(4) { animation-delay: 0.2s; }
+  .reveal:nth-child(5) { animation-delay: 0.25s; }
+  .reveal:nth-child(6) { animation-delay: 0.3s; }
+
+  /* Hero */
+  .hero {
+    padding: 140px 48px 120px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    background: url('hero-background-placeholder.png') center/cover;
+    background-attachment: fixed;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: rgba(251,251,251,0.03);
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: heroBlob 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes heroBlob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(80px, -80px) scale(1.1); }
+    66% { transform: translate(-40px, 60px) scale(0.95); }
+  }
+
+  .hero__label {
+    margin-bottom: 40px;
+    display: block;
+  }
+
+  .hero__name {
+    margin-bottom: 40px;
+    line-height: 0.95;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__tagline {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(251,251,251,0.7);
+    max-width: 560px;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__meta-item {
+    font-size: 12px;
+  }
+
+  .hero__meta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.4);
+    margin-bottom: 8px;
+  }
+
+  .hero__meta-val {
+    font-size: 14px;
+    color: #fbfbfb;
+  }
+
+  /* About */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about__left { }
+
+  .about__label { margin-bottom: 32px; }
+
+  .about__title { margin-bottom: 40px; }
+
+  .about__body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(251,251,251,0.7);
+  }
+
+  .about__body p {
+    margin-bottom: 20px;
+  }
+
+  .about__right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .stat {
+    text-align: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stat:hover {
+    transform: scale(1.08);
+  }
+
+  .stat__num {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+
+  .stat.is-visible .stat__num {
+    animation: countUp 0.6s ease-out forwards;
+    opacity: 1;
+  }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .stat__label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.5);
+  }
+
+  /* Experience - Service Card List Style (Left Coast) */
+  .exp__list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    border-top: none;
+    margin-top: 80px;
+  }
+
+  .exp__item {
+    padding: 40px;
+    background: rgba(251,251,251,0.03);
+    border: 1px solid rgba(251,251,251,0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 48px;
+    align-items: flex-start;
+    overflow: hidden;
+  }
+
+  .exp__item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(251,251,251,0.08), transparent);
+    animation: scanLight 2s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .exp__item:hover {
+    background: rgba(251,251,251,0.06);
+    border-color: rgba(251,251,251,0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(251,251,251,0.1);
+  }
+
+  .exp__item:hover::before {
+    opacity: 1;
+  }
+
+  .exp__image {
+    width: 180px;
+    height: 180px;
+    background: rgba(251,251,251,0.05);
+    border: 1px solid rgba(251,251,251,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .exp__item:hover .exp__image {
+    border-color: rgba(251,251,251,0.3);
+    transform: scale(1.04);
+  }
+
+  .exp__content {
+    padding-top: 8px;
+  }
+
+  .exp__title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .exp__company {
+    font-size: 12px;
+    color: rgba(251,251,251,0.4);
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .exp__period {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(251,251,251,0.4);
+    margin-bottom: 0;
+  }
+
+  .exp__description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(251,251,251,0.5);
+    margin-top: 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .exp__item:hover .exp__description {
+    max-height: 100px;
+  }
+
+  /* Projects - Timeline Card Layout (Left Coast Style) */
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(16px, 3vw, 32px);
+    margin-top: 80px;
+    position: relative;
+  }
+
+  .projects__grid::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(251,251,251,0.1);
+    z-index: 0;
+  }
+
+  @media (max-width: 1200px) {
+    .projects__grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects__grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .projects__grid::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .projects__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .project {
+    min-height: clamp(300px, 40vw, 450px);
+    background: rgba(251,251,251,0.04);
+    border: 1px solid rgba(251,251,251,0.15);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(20px, 5vw, 32px);
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    overflow: hidden;
+  }
+
+  .project:nth-child(1) { animation-delay: 0.1s; }
+  .project:nth-child(2) { animation-delay: 0.2s; }
+  .project:nth-child(3) { animation-delay: 0.3s; }
+  .project:nth-child(4) { animation-delay: 0.4s; }
+
+  .project::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(251,251,251,0.08), transparent);
+    animation: scanLight 2s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .project:hover::after {
+    opacity: 1;
+  }
+
+  .project:hover {
+    background: rgba(251,251,251,0.08);
+    border-color: rgba(251,251,251,0.3);
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px rgba(251,251,251,0.15);
+  }
+
+  .project-number {
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 700;
+    color: rgba(251,251,251,0.2);
+    line-height: 1;
+    margin-bottom: clamp(16px, 3vw, 24px);
+  }
+
+  .project__content {
+    text-align: center;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .project:hover .project__content {
+    opacity: 1;
+    max-height: 500px;
+    pointer-events: auto;
+  }
+
+  .project__image {
+    width: 100%;
+    height: clamp(120px, 25vw, 200px);
+    background: rgba(251,251,251,0.08);
+    border: 1px solid rgba(251,251,251,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(50px, 12vw, 80px);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: clamp(12px, 2vw, 16px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project:hover .project__image {
+    border-color: rgba(251,251,251,0.4);
+    transform: scale(1.03);
+  }
+
+  .project__title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+    color: #fbfbfb;
+  }
+
+  .project__subtitle {
+    font-size: 13px;
+    color: rgba(251,251,251,0.6);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .project__meta-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .project__meta-item {
+    font-size: 11px;
+    color: rgba(251,251,251,0.5);
+    display: flex;
+    gap: 8px;
+  }
+
+  .project__meta-item::before {
+    content: '→';
+    color: rgba(251,251,251,0.3);
+  }
+
+  /* Skills */
+  .skills__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 80px;
+  }
+
+  .skills__col { }
+
+  .skills__col h3 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .skills__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skills__item {
+    font-size: 12px;
+    padding: 8px 12px;
+    border: 1px solid rgba(251,251,251,0.2);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+  }
+
+  .skills__item:hover {
+    border-color: rgba(251,251,251,0.5);
+    background: rgba(251,251,251,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Achievements */
+  .ach__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 80px;
+  }
+
+  .ach__item { text-align: center; }
+
+  .ach__num {
+    font-size: clamp(48px, 8vw, 100px);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .ach__label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(251,251,251,0.5);
+  }
+
+  /* Credentials */
+  .cred__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 80px;
+  }
+
+  .cred__col h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .cred__col p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(251,251,251,0.7);
+    margin-bottom: 16px;
+  }
+
+  .cred__list {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(251,251,251,0.7);
+  }
+
+  .cred__list li {
+    margin-bottom: 8px;
+  }
+
+  /* Writing */
+  .writing__intro {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(251,251,251,0.6);
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .writing__list {
+    list-style: none;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .writing__item {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px;
+    gap: 32px;
+    align-items: center;
+    padding: 32px;
+    border: 1px solid rgba(251,251,251,0.1);
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+
+  .writing__item:hover {
+    border-color: rgba(251,251,251,0.3);
+    background: rgba(251,251,251,0.02);
+    transform: translateX(12px);
+  }
+
+  .writing__num {
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(251,251,251,0.3);
+  }
+
+  .writing__title {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #fbfbfb;
+  }
+
+  .writing__status {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.4);
+    text-align: right;
+  }
+
+  /* Contact */
+  .contact__heading {
+    margin-bottom: 60px;
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 80px;
+  }
+
+  .contact__link {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(251,251,251,0.2);
+    transition: all 0.3s;
+  }
+
+  .contact__link:hover {
+    border-color: #fbfbfb;
+    transform: translateX(8px);
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 48px;
+  }
+
+  .modal.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal__inner {
+    background: #000;
+    border: 1px solid rgba(251,251,251,0.2);
+    padding: 60px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 4px;
+    animation: modalSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes modalSlideIn {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal__title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .modal__subtitle {
+    font-size: 16px;
+    color: rgba(251,251,251,0.5);
+    margin-bottom: 40px;
+  }
+
+  .modal__meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding: 40px 0;
+    border-top: 1px solid rgba(251,251,251,0.1);
+    border-bottom: 1px solid rgba(251,251,251,0.1);
+    margin-bottom: 40px;
+  }
+
+  .modal__meta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.4);
+    margin-bottom: 8px;
+  }
+
+  .modal__meta-val {
+    font-size: 14px;
+    color: #fbfbfb;
+  }
+
+  .modal__body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(251,251,251,0.7);
+  }
+
+  .modal__body p {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 100px 32px; }
+    nav { padding: 24px 32px; }
+    .nav__links { gap: 24px; font-size: 11px; }
+    .hero { padding: 100px 32px 80px; }
+    .hero__meta { grid-template-columns: 1fr; gap: 24px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    
+    /* Work History mobile */
+    .exp__item {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      direction: ltr;
+    }
+    .exp__item:nth-child(even) {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+    .exp__item-number {
+      position: static;
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: rgba(251,251,251,0.15);
+    }
+    .exp__image {
+      height: 250px;
+      order: -1;
+    }
+    
+  @media (max-width: 1200px) {
+    .projects__grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(14px, 2.5vw, 24px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects__grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: clamp(12px, 2vw, 20px);
+    }
+    .projects__grid::before {
+      display: none;
+    }
+    .project {
+      min-height: clamp(250px, 35vw, 380px);
+      padding: clamp(16px, 4vw, 24px);
+    }
+    .project-number {
+      font-size: clamp(36px, 6vw, 56px);
+      margin-bottom: clamp(12px, 2.5vw, 18px);
+    }
+    .project__image {
+      height: clamp(100px, 20vw, 160px);
+      font-size: clamp(40px, 10vw, 64px);
+      margin-bottom: clamp(10px, 1.5vw, 12px);
+    }
+    .project__title {
+      font-size: clamp(14px, 3vw, 16px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .projects__grid {
+      grid-template-columns: 1fr;
+      gap: clamp(12px, 4vw, 16px);
+    }
+    .project {
+      min-height: auto;
+      min-height: 220px;
+      padding: clamp(16px, 3vw, 20px);
+    }
+    .project-number {
+      font-size: clamp(32px, 5vw, 44px);
+      margin-bottom: clamp(10px, 2vw, 14px);
+    }
+    .project__image {
+      height: clamp(80px, 18vw, 120px);
+      font-size: clamp(32px, 8vw, 48px);
+      margin-bottom: clamp(8px, 1.5vw, 10px);
+    }
+    .project__title {
+      font-size: clamp(13px, 2.5vw, 14px);
+    }
+    .project__subtitle {
+      font-size: clamp(11px, 2vw, 12px);
+    }
+  }
+    .skills__grid { grid-template-columns: 1fr; }
+    .ach__grid { grid-template-columns: repeat(2, 1fr); }
+    .cred__grid { grid-template-columns: 1fr; }
+    .contact__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 500px) {
+    section { padding: 80px 24px; }
+    nav { padding: 20px 24px; gap: 20px; }
+    .nav__links { gap: 16px; font-size: 11px; }
+    .hero { padding: 80px 24px 60px; }
+    h1 { font-size: 48px; }
+    h2 { font-size: 32px; }
+    .hero__meta { gap: 16px; }
+    .ach__grid { grid-template-columns: 1fr; }
+    .modal__inner { padding: 40px 32px; }
+    .writing__item { grid-template-columns: 40px 1fr; gap: 16px; }
+    
+    /* Projects very small screens */
+    .projects__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .project {
+      aspect-ratio: auto;
+      min-height: 250px;
+    }
+    .project-number { font-size: 36px; }
+    .project__image { height: 120px; }
+    .project__title { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-bar"></div>
+
+<nav>
+  <div class="nav__mark">IZ</div>
+  <div class="nav__links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#work" onclick="closeMobileMenu()">Work</a>
+  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- TWEAKS BUTTON -->
+<button class="tweaks-toggle" id="tweaksBtn" title="Toggle tweaks">⚙</button>
+
+<!-- TWEAKS PANEL -->
+<div class="tweaks-panel" id="tweaksPanel">
+  <button class="tweaks-close" onclick="closeTweaks()">✕</button>
+  <h3>Tweaks</h3>
+
+  <div class="tweaks-group">
+    <label class="tweaks-label">Theme</label>
+    <div class="tweaks-opts">
+      <button class="tweaks-opt active" onclick="setTheme('light')">Light</button>
+      <button class="tweaks-opt" onclick="setTheme('dark')">Dark</button>
+    </div>
+  </div>
+
+  <div class="tweaks-group">
+    <label class="tweaks-label">Accent Color</label>
+    <div class="tweaks-opts">
+      <button class="tweaks-opt active" onclick="setAccent('white')" style="background: #fbfbfb; color: #000; border-color: #fbfbfb;">Default</button>
+      <button class="tweaks-opt" onclick="setAccent('gold')" style="border-color: #d4af37; color: #d4af37;">Gold</button>
+      <button class="tweaks-opt" onclick="setAccent('cyan')" style="border-color: #00d4ff; color: #00d4ff;">Cyan</button>
+    </div>
+  </div>
+
+  <div class="tweaks-group">
+    <label class="tweaks-label">Animation Speed</label>
+    <div class="tweaks-opts">
+      <button class="tweaks-opt" onclick="setAnimSpeed('slow')">Slow</button>
+      <button class="tweaks-opt active" onclick="setAnimSpeed('normal')">Normal</button>
+      <button class="tweaks-opt" onclick="setAnimSpeed('fast')">Fast</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="label reveal">Supply Chain × Project Management × Operations</div>
+    <h1 class="hero__name reveal">Mohammed Izhan Shaikh</h1>
+    <p class="hero__tagline reveal">I lead cross-functional teams through complex supply chain transformations. Six years of project delivery across FMCG, SaaS, and e-commerce.</p>
+    <div class="hero__meta">
+      <div class="hero__meta-item reveal">
+        <div class="hero__meta-label">Role</div>
+        <div class="hero__meta-val">Project Manager</div>
+      </div>
+      <div class="hero__meta-item reveal">
+        <div class="hero__meta-label">Based</div>
+        <div class="hero__meta-val">Bengaluru, India</div>
+      </div>
+      <div class="hero__meta-item reveal">
+        <div class="hero__meta-label">Open to</div>
+        <div class="hero__meta-val">Senior PM · Solution Design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about">
+      <div class="about__left">
+        <div class="label reveal">About</div>
+        <h2 class="about__title reveal">Operations,<br />decoded.</h2>
+        <div class="about__body">
+          <p class="reveal">I spend my days inside warehouses that don't exist yet — on whiteboards, in Excel, in the layouts of systems that will one day route thousands of shipments a shift.</p>
+          <p class="reveal">For six years I've been translating messy human operations — forklifts, cartons, SLAs, exceptions — into software that scales. I've led WMS implementations at P&G, ITC, and Nestlé, and shipped workflows that squeezed 25% more productivity out of warehouses that thought they were already at capacity.</p>
+        </div>
+      </div>
+      <div class="about__right">
+        <div class="stat reveal">
+          <div class="stat__num">25%</div>
+          <div class="stat__label">Productivity Gain</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat__num">150K</div>
+          <div class="stat__label">Cleared in 7 Days</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat__num">6+</div>
+          <div class="stat__label">Years in Supply Chain</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="work">
+  <div class="container container--narrow">
+    <div class="label reveal">Work</div>
+    <h2 class="reveal">History.</h2>
+    <div class="exp__list">
+      <div class="exp__item reveal" onclick="openModal('stackbox')">
+        <div class="exp__image">📦</div>
+        <div class="exp__content">
+          <h3 class="exp__title">Assistant Project Manager</h3>
+          <div class="exp__company">StackBOX</div>
+          <div class="exp__period">Sep 2023 — Present</div>
+          <p class="exp__description">Leading product and solution design for warehouse management platforms. Architecting end-to-end solutions for enterprises scaling their supply chain operations.</p>
+        </div>
+      </div>
+
+      <div class="exp__item reveal" onclick="openModal('edgistify')">
+        <div class="exp__image">🏭</div>
+        <div class="exp__content">
+          <h3 class="exp__title">Manager, Solution Design</h3>
+          <div class="exp__company">Edgistify</div>
+          <div class="exp__period">Aug 2022 — Sep 2023</div>
+          <p class="exp__description">Designed and delivered supply chain solutions for 3PL and e-commerce clients. Led implementation across 12+ warehouses with 5 concurrent go-lives.</p>
+        </div>
+      </div>
+
+      <div class="exp__item reveal" onclick="openModal('mindseed')">
+        <div class="exp__image">📊</div>
+        <div class="exp__content">
+          <h3 class="exp__title">Manager, Procurement & Supply Chain</h3>
+          <div class="exp__company">Mindseed Education</div>
+          <div class="exp__period">Dec 2021 — Aug 2022</div>
+          <p class="exp__description">Built supply chain operations from scratch for an edtech startup. Scaled to 50+ cities with 8,000+ SKUs across distribution hubs.</p>
+        </div>
+      </div>
+
+      <div class="exp__item reveal" onclick="openModal('dtdc')">
+        <div class="exp__image">🚚</div>
+        <div class="exp__content">
+          <h3 class="exp__title">Branch Manager</h3>
+          <div class="exp__company">DTDC Express</div>
+          <div class="exp__period">Jan 2020 — Dec 2021</div>
+          <p class="exp__description">Managed branch operations for India's largest express courier network. Built crisis response protocols and cleared 150K shipment backlog in 7 days.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="label reveal">Projects</div>
+    <h2 class="reveal">Case studies.</h2>
+    <div class="projects__grid">
+      <div class="project reveal" onclick="openModal('hul')">
+        <div class="project-number">01</div>
+        <div class="project__content">
+          <h3 class="project__title">HUL Samadhan</h3>
+          <p class="project__subtitle">Warehouse automation UAT & go-live across 3 major distribution hubs. Automated sortation, picking, and packing workflows.</p>
+          <ul class="project__meta-list">
+            <li class="project__meta-item">40% Throughput Increase</li>
+            <li class="project__meta-item">3 Warehouses Deployed</li>
+            <li class="project__meta-item">Zero Downtime Launch</li>
+          </ul>
+        </div>
+        <div class="project__image">📦</div>
+      </div>
+
+      <div class="project reveal" onclick="openModal('25')">
+        <div class="project-number">02</div>
+        <div class="project__content">
+          <h3 class="project__title">The 25% Project</h3>
+          <p class="project__subtitle">Picking workflow redesign through process optimization and batching algorithm improvements. Reduced pick cycle time by 25%.</p>
+          <ul class="project__meta-list">
+            <li class="project__meta-item">25% Productivity Gain</li>
+            <li class="project__meta-item">160 Additional Picks/Shift</li>
+            <li class="project__meta-item">ROI in 90 Days</li>
+          </ul>
+        </div>
+        <div class="project__image">📈</div>
+      </div>
+
+      <div class="project reveal" onclick="openModal('ph')">
+        <div class="project-number">03</div>
+        <div class="project__content">
+          <h3 class="project__title">PH Rollout</h3>
+          <p class="project__subtitle">Multi-warehouse PTL (Pick-to-Light) implementation across 8 locations. Synchronized go-live without operational spillover.</p>
+          <ul class="project__meta-list">
+            <li class="project__meta-item">8 Warehouses Synced</li>
+            <li class="project__meta-item">99.2% Pick Accuracy</li>
+            <li class="project__meta-item">18% Faster Fulfillment</li>
+          </ul>
+        </div>
+        <div class="project__image">🎯</div>
+      </div>
+
+      <div class="project reveal" onclick="openModal('backlog')">
+        <div class="project-number">04</div>
+        <div class="project__content">
+          <h3 class="project__title">The Backlog</h3>
+          <p class="project__subtitle">Crisis operations during COVID-19. Built alternative last-mile network in 48 hours and cleared 150K shipment backlog in 7 days.</p>
+          <ul class="project__meta-list">
+            <li class="project__meta-item">150K Shipments Cleared</li>
+            <li class="project__meta-item">98% On-Time Delivery</li>
+            <li class="project__meta-item">Network Case Study</li>
+          </ul>
+        </div>
+        <div class="project__image">⚡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="label reveal">Skills</div>
+    <h2 class="reveal">Toolkit.</h2>
+    <div class="skills__grid">
+      <div class="skills__col reveal">
+        <h3>Supply Chain & Ops</h3>
+        <ul class="skills__list">
+          <li class="skills__item">Warehouse Operations</li>
+          <li class="skills__item">WMS Design</li>
+          <li class="skills__item">Process Optimization</li>
+          <li class="skills__item">Inventory Management</li>
+        </ul>
+      </div>
+      <div class="skills__col reveal">
+        <h3>Implementation</h3>
+        <ul class="skills__list">
+          <li class="skills__item">BRD Documentation</li>
+          <li class="skills__item">UAT Leadership</li>
+          <li class="skills__item">Go-live Management</li>
+          <li class="skills__item">Stakeholder Alignment</li>
+        </ul>
+      </div>
+      <div class="skills__col reveal">
+        <h3>Data & Analytics</h3>
+        <ul class="skills__list">
+          <li class="skills__item">Advanced Excel</li>
+          <li class="skills__item">SQL / JSON</li>
+          <li class="skills__item">Tableau</li>
+          <li class="skills__item">KPI Dashboards</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="label reveal">By the Numbers</div>
+    <h2 class="reveal">Impact.</h2>
+    <div class="ach__grid">
+      <div class="ach__item reveal">
+        <div class="ach__num">25%</div>
+        <div class="ach__label">Productivity Gain</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">99%+</div>
+        <div class="ach__label">Order Accuracy</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">150K</div>
+        <div class="ach__label">Shipments (7 days)</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">30%</div>
+        <div class="ach__label">Faster Fulfillment</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">6+</div>
+        <div class="ach__label">Years Supply Chain</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">P&G · ITC · Nestlé</div>
+        <div class="ach__label">Key Clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="container">
+    <div class="label reveal">Background</div>
+    <h2 class="reveal">Education & Certs.</h2>
+    <div class="cred__grid">
+      <div class="reveal">
+        <h3>Education</h3>
+        <p><strong>Mumbai University</strong></p>
+        <p>B.E. Mechanical Engineering<br />2015 — 2019</p>
+      </div>
+      <div class="reveal">
+        <h3>Certifications</h3>
+        <ul class="cred__list">
+          <li>Lean Six Sigma Foundations</li>
+          <li>SAP S/4HANA Essential Training</li>
+          <li>Project Management Foundations</li>
+          <li>Supply Chain Foundations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="container container--narrow">
+    <div class="label reveal" style="text-align: center;">Dispatches</div>
+    <h2 class="reveal" style="text-align: center;">From the field.</h2>
+    <p class="writing__intro reveal">Short notes from warehouses, go-lives, and the moments implementations go sideways. Coming soon.</p>
+    <ul class="writing__list">
+      <li class="writing__item reveal">
+        <span class="writing__num">I</span>
+        <span class="writing__title">What I learned clearing 150,000 shipments in a week.</span>
+        <span class="writing__status">In draft</span>
+      </li>
+      <li class="writing__item reveal">
+        <span class="writing__num">II</span>
+        <span class="writing__title">The real cost of picker walking distance.</span>
+        <span class="writing__status">In draft</span>
+      </li>
+      <li class="writing__item reveal">
+        <span class="writing__num">III</span>
+        <span class="writing__title">Why UAT is a design problem, not a test problem.</span>
+        <span class="writing__status">Outlined</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container container--narrow">
+    <div class="label reveal">Get In Touch</div>
+    <h2 class="contact__heading reveal">Let's talk.</h2>
+    <div class="contact__grid">
+      <a href="mailto:mohdizhan7@gmail.com" class="contact__link reveal">mohdizhan7@gmail.com</a>
+      <a href="https://linkedin.com/in/mohdizhan" class="contact__link reveal">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- MODALS -->
+<div id="modal-hul" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">HUL Samadhan</h2>
+    <p class="modal__subtitle">Warehouse automation UAT & go-live</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Automation Lead</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Jan—Jun 2023</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Scale</div>
+        <div class="modal__meta-val">3 Warehouses</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Led UAT design and execution for a full warehouse automation retrofit across HUL's top 3 distribution hubs. Automated sortation, picking, and packing workflows that had been manual for 15+ years.</p>
+      <p>Built the BRD, choreographed UAT cycles with 150+ stakeholders (operations, IT, external partners), and ran go-live across 3 sites in parallel without a single day of downtime.</p>
+      <p><strong>Outcome:</strong> 40% throughput increase. Captured $2.3M in annual savings. Zero operational regressions post-launch.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-25" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">The 25% Project</h2>
+    <p class="modal__subtitle">Picking workflow redesign</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Process Design Lead</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">May—Aug 2022</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Venue</div>
+        <div class="modal__meta-val">Edgistify · Delhi Hub</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Spent 6 weeks on the warehouse floor studying picker motion, data entry bottlenecks, and batching logic. Identified that 40% of pick time was wasted on unoptimized batch assignments.</p>
+      <p>Redesigned batching algorithm to group picks by zone proximity and aisle sequences. Retrained pickers on new layouts. Reduced average pick cycle time from 8 min to 6 min per 50-unit batch.</p>
+      <p><strong>Outcome:</strong> 25% productivity gain. 160 additional picks per picker per shift. ROI in 90 days.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-ph" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">PH Rollout</h2>
+    <p class="modal__subtitle">Multi-warehouse PTL implementation</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Implementation PM</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Mar—Dec 2021</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Scale</div>
+        <div class="modal__meta-val">8 Warehouses</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Managed end-to-end roll out of Pick-to-Light (PTL) systems across 8 warehouses serving a top pharmaceutical manufacturer. Each site ran independently; we needed synchronized go-live without spillover impact.</p>
+      <p>Built rollout playbooks, trained 200+ operators on hardware and workflows, and ran staggered pilots with live data validation before full deployment to each site.</p>
+      <p><strong>Outcome:</strong> 99.2% pick accuracy. Zero missed shipments. 18% faster order fulfillment across network.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-backlog" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">The Backlog</h2>
+    <p class="modal__subtitle">Crisis operations: 150K shipments in 7 days</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Branch Manager</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">April 2020</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Scale</div>
+        <div class="modal__meta-val">150,000 shipments</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>During the first COVID wave, Mumbai's last-mile collapsed. 150,000 shipments stacked up at my branch. I built an alternative last-mile network in 48 hours and cleared the entire backlog in seven days.</p>
+      <p>Signed local partners with idle two-wheelers, negotiated per-shipment rates, and stood up routing sheets in Google Sheets. Maintained 95–98% on-time delivery and less than 0.5% damage rate throughout the operation.</p>
+      <p><strong>Outcome:</strong> No customer escalations. Zero service failures. Became a case study in crisis operations across the network.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE MODALS -->
+<div id="modal-stackbox" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Assistant Project Manager</h2>
+    <p class="modal__subtitle">StackBOX</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Sep 2023 — Present</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Bengaluru</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">WMS · Supply Chain Tech</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Leading product and solution design for StackBox's warehouse management platform. Currently architecting end-to-end solutions for enterprises migrating from legacy WMS to cloud-based systems.</p>
+      <p>Responsibilities include requirements gathering with C-suite stakeholders, designing implementation playbooks for multi-warehouse deployments, and owning success metrics for go-lives.</p>
+      <p><strong>Key wins:</strong> Shipped 3 enterprise solutions. Reduced average implementation timeline by 20%. Built playbook now used across all new customer onboarding.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-edgistify" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Manager, Solution Design</h2>
+    <p class="modal__subtitle">Edgistify</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Aug 2022 — Sep 2023</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Delhi NCR</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">3PL · Logistics Tech</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Designed and delivered supply chain solutions for 3PL and e-commerce clients. Led a team of 4 solution architects through client discovery, BRD documentation, and UAT leadership.</p>
+      <p>Managed implementations across 12+ warehouses, coordinated between product, operations, and client stakeholders, and owned the success of 5 concurrent go-lives.</p>
+      <p><strong>Key wins:</strong> 25% average productivity uplift across implementations. Zero critical defects in production. Built repeatable playbook that reduced implementation cost by 18%.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-mindseed" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Manager, Procurement & Supply Chain</h2>
+    <p class="modal__subtitle">Mindseed Education</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Dec 2021 — Aug 2022</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Bengaluru</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">Education Tech · Operations</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Built supply chain operations from the ground up for an edtech startup scaling to 50+ cities. Designed procurement workflows, inventory management systems, and logistics network.</p>
+      <p>Established vendor relationships, created SOP documentation, and implemented Zoho Inventory to track 8,000+ SKUs across distribution hubs.</p>
+      <p><strong>Key wins:</strong> Reduced cost per shipment by 22%. Achieved 98% on-time delivery to 50+ cities. Enabled launch in 12 new markets in 6 months.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-dtdc" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Branch Manager</h2>
+    <p class="modal__subtitle">DTDC Express</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Jan 2020 — Dec 2021</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Mumbai</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">Last-mile · Crisis Operations</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Managed branch operations for India's largest express courier network. Oversaw 150+ staff, managed daily shipment volumes of 10K+, and owned P&L for a ₹4.5Cr annual operation.</p>
+      <p>Implemented process improvements that reduced handling time by 18%, negotiated vendor contracts, and built crisis response protocols for operational disruptions.</p>
+      <p><strong>Key wins:</strong> Cleared 150K shipment backlog in 7 days during COVID-19. Maintained 98%+ on-time delivery. Built alternative last-mile network that became a case study across DTDC zones.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+  });
+
+  function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  // Close mobile menu when clicking outside
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+      closeMobileMenu();
+    }
+  });
+
+  // Tweaks panel
+  const tweaksBtn = document.getElementById('tweaksBtn');
+  const tweaksPanel = document.getElementById('tweaksPanel');
+
+  tweaksBtn.addEventListener('click', () => {
+    tweaksPanel.classList.toggle('active');
+    tweaksBtn.classList.toggle('hide');
+  });
+
+  function closeTweaks() {
+    tweaksPanel.classList.remove('active');
+    tweaksBtn.classList.remove('hide');
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('.tweaks-group:nth-child(1) .tweaks-opt').forEach(b => b.classList.remove('active'));
+    const buttons = document.querySelectorAll('.tweaks-group:nth-child(1) .tweaks-opt');
+    if (theme === 'light') {
+      buttons[0].classList.add('active');
+    } else {
+      buttons[1].classList.add('active');
+    }
+    localStorage.setItem('theme', theme);
+  }
+
+  function setAccent(color) {
+    const root = document.documentElement;
+    const colors = { white: '#fbfbfb', gold: '#d4af37', cyan: '#00d4ff' };
+    root.style.setProperty('--accent-color', colors[color]);
+    document.querySelectorAll('.tweaks-group:nth-child(2) .tweaks-opt').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    localStorage.setItem('accent', color);
+  }
+
+  function setAnimSpeed(speed) {
+    const speeds = { slow: '1.5s', normal: '0.8s', fast: '0.4s' };
+    document.documentElement.style.setProperty('--anim-duration', speeds[speed]);
+    document.querySelectorAll('.tweaks-group:nth-child(3) .tweaks-opt').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    localStorage.setItem('animSpeed', speed);
+  }
+
+  // Modal functions
+  function openModal(id) {
+    const modal = document.getElementById(`modal-${id}`);
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal(id) {
+    const modal = document.getElementById(`modal-${id}`);
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // Close modal on background click
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        const id = modal.id.replace('modal-', '');
+        closeModal(id);
+      }
+    });
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal.active').forEach(modal => {
+        const id = modal.id.replace('modal-', '');
+        closeModal(id);
+      });
+    }
+  });
+
+  // Scroll progress bar
+  const scrollBar = document.querySelector('.scroll-bar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const progress = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    scrollBar.style.transform = `scaleX(${progress})`;
+  }, { passive: true });
+
+  // Parallax scroll effect on hero
+  const heroSection = document.querySelector('.hero');
+  window.addEventListener('scroll', () => {
+    if (heroSection) {
+      const scrollY = window.scrollY;
+      const heroRect = heroSection.getBoundingClientRect();
+      if (heroRect.top < window.innerHeight && heroRect.bottom > 0) {
+        const offset = scrollY * 0.5;
+        heroSection.style.transform = `translateY(${offset}px)`;
+      }
+    }
+  }, { passive: true });
+
+  // Reveal observer
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -80px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all reveal elements and work/project items
+  document.querySelectorAll('.reveal, .exp__item, .project').forEach((el) => {
+    observer.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 80) {
+      el.classList.add('is-visible');
+      observer.unobserve(el);
+    }
+  });
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('.nav__links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Stat counter animation on reveal
+  const statNums = document.querySelectorAll('.stat__num');
+  statNums.forEach((stat) => {
+    const statObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.parentElement.classList.add('is-visible');
+          statObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statObs.observe(stat);
+  });
+</script>
+
+</body>
+</html>
