@@ -491,14 +491,13 @@
     gap: 32px;
   }
 
+  /* Animated counters */
   .stat {
     text-align: center;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .stat:hover {
-    transform: scale(1.08);
-  }
+  .stat:hover { transform: scale(1.06); }
 
   .stat__num {
     font-size: 64px;
@@ -506,16 +505,14 @@
     line-height: 1;
     margin-bottom: 8px;
     display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
 
   .stat.is-visible .stat__num {
-    animation: countUp 0.6s ease-out forwards;
     opacity: 1;
-  }
-
-  @keyframes countUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    transform: translateY(0);
   }
 
   .stat__label {
@@ -523,6 +520,59 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(251,251,251,0.5);
+  }
+
+  /* Bar charts */
+  .bars {
+    margin-top: 64px;
+  }
+
+  .bars__title {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.5);
+    margin-bottom: 28px;
+  }
+
+  .bar__item {
+    margin-bottom: 20px;
+  }
+
+  .bar__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .bar__label {
+    font-size: 13px;
+    color: rgba(251,251,251,0.8);
+  }
+
+  .bar__value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fbfbfb;
+  }
+
+  .bar__track {
+    height: 2px;
+    background: rgba(251,251,251,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar__fill {
+    height: 100%;
+    background: #fbfbfb;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bar__item.is-visible .bar__fill {
+    width: var(--pct);
   }
 
   /* Experience - Service Card List Style (Left Coast) */
@@ -1272,19 +1322,56 @@
         <div class="about__body">
           <p class="reveal">6+ years designing technology-driven supply chain solutions across FMCG, SaaS, and e-commerce. I bridge enterprise operations and the systems that run them — WMS and TMS implementations, warehouse process design, and go-live coordination for clients including P&G, ITC, and Nestlé.</p>
         </div>
+
+        <div class="bars reveal">
+          <div class="bars__title">Impact at a glance</div>
+          <div class="bar__item" data-pct="25">
+            <div class="bar__header">
+              <span class="bar__label">Warehouse Productivity</span>
+              <span class="bar__value">+25%</span>
+            </div>
+            <div class="bar__track"><div class="bar__fill" style="--pct: 25%"></div></div>
+          </div>
+          <div class="bar__item" data-pct="30">
+            <div class="bar__header">
+              <span class="bar__label">Fulfillment Cycle Time</span>
+              <span class="bar__value">−30%</span>
+            </div>
+            <div class="bar__track"><div class="bar__fill" style="--pct: 30%"></div></div>
+          </div>
+          <div class="bar__item" data-pct="99">
+            <div class="bar__header">
+              <span class="bar__label">Order Accuracy</span>
+              <span class="bar__value">99%+</span>
+            </div>
+            <div class="bar__track"><div class="bar__fill" style="--pct: 99%"></div></div>
+          </div>
+          <div class="bar__item" data-pct="15">
+            <div class="bar__header">
+              <span class="bar__label">Procurement Cost Savings</span>
+              <span class="bar__value">−15%</span>
+            </div>
+            <div class="bar__track"><div class="bar__fill" style="--pct: 15%"></div></div>
+          </div>
+        </div>
       </div>
+
       <div class="about__right">
-        <div class="stat reveal">
-          <div class="stat__num">25%</div>
+        <div class="stat" data-count="25" data-suffix="%">
+          <div class="stat__num">0%</div>
           <div class="stat__label">Productivity Gain</div>
         </div>
-        <div class="stat reveal">
-          <div class="stat__num">150K</div>
-          <div class="stat__label">Cleared in 7 Days</div>
+        <div class="stat" data-count="150" data-suffix="K">
+          <div class="stat__num">0K</div>
+          <div class="stat__label">Shipments in 7 Days</div>
         </div>
-        <div class="stat reveal">
-          <div class="stat__num">6+</div>
+        <div class="stat" data-count="6" data-suffix="+">
+          <div class="stat__num">0+</div>
           <div class="stat__label">Years in Supply Chain</div>
+        </div>
+        <div class="stat" data-count="50" data-suffix="+">
+          <div class="stat__num">0+</div>
+          <div class="stat__label">Sites Currently Rolling Out</div>
         </div>
       </div>
     </div>
@@ -1898,19 +1985,45 @@
     });
   });
 
-  // Stat counter animation on reveal
-  const statNums = document.querySelectorAll('.stat__num');
-  statNums.forEach((stat) => {
-    const statObs = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.parentElement.classList.add('is-visible');
-          statObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    statObs.observe(stat);
-  });
+  // Animated counters
+  function animateCounter(el, target, suffix, duration) {
+    const start = performance.now();
+    const update = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const stat = entry.target;
+        const target = parseInt(stat.dataset.count);
+        const suffix = stat.dataset.suffix || '';
+        const numEl = stat.querySelector('.stat__num');
+        stat.classList.add('is-visible');
+        animateCounter(numEl, target, suffix, 1600);
+        statObs.unobserve(stat);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.stat[data-count]').forEach(el => statObs.observe(el));
+
+  // Animated bars
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        barObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.bar__item').forEach(el => barObs.observe(el));
 </script>
 
 </body>
