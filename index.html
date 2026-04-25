@@ -4,6 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mohammed Izhan Shaikh — Project Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet" />
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -45,7 +48,7 @@
   html, body {
     background: var(--bg);
     color: var(--fg);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -112,7 +115,7 @@
     align-items: center;
     gap: 32px;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .nav__links a {
@@ -266,13 +269,14 @@
   /* Typography */
   .label {
     font-size: 11px;
+    font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--fg-3);
   }
 
   h1, h2, h3 {
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.05;
   }
@@ -374,36 +378,26 @@
     padding-top: 64px;
   }
 
-  /* Hero entrance animations */
-  @keyframes heroFadeUp {
-    from { opacity: 0; transform: translateY(36px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes heroFadeIn {
+  /* Hero entrance animations — matching Dave Lee exactly */
+  @keyframes preFadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
 
-  .hero__topbar,
+  .hero__topbar-left,
+  .hero__topbar-right,
   .hero__name,
   .hero__rows .hero__row {
     opacity: 0;
+    animation: preFadeIn 0.9s ease forwards;
   }
 
-  .hero__topbar {
-    animation: heroFadeIn 0.6s ease forwards;
-    animation-delay: 0.3s;
-  }
-
-  .hero__name {
-    animation: heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
-    animation-delay: 0.55s;
-  }
-
-  .hero__rows .hero__row:nth-child(1) { animation: heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 0.85s; }
-  .hero__rows .hero__row:nth-child(2) { animation: heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 1.00s; }
-  .hero__rows .hero__row:nth-child(3) { animation: heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 1.15s; }
+  .hero__topbar-left        { animation-delay: 0.12s; }
+  .hero__topbar-right       { animation-delay: 0.13s; }
+  .hero__name               { animation-delay: 0.155s; }
+  .hero__rows .hero__row:nth-child(1) { animation-delay: 0.165s; }
+  .hero__rows .hero__row:nth-child(2) { animation-delay: 0.175s; }
+  .hero__rows .hero__row:nth-child(3) { animation-delay: 0.186s; }
 
   /* Topbar */
   .hero__topbar {
@@ -413,7 +407,7 @@
     padding-bottom: 14px;
     border-bottom: 1px solid var(--fg-2);
     margin-bottom: 64px;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 400;
     color: var(--fg-2);
     letter-spacing: 0.01em;
@@ -422,7 +416,7 @@
   .hero__topbar-left { display: flex; gap: 5px; align-items: center; }
   .hero__topbar-right { display: flex; gap: 5px; align-items: center; }
   .hero__topbar b { font-weight: 700; color: var(--fg); }
-  .hero__clock { font-variant-numeric: tabular-nums; }
+  .hero__clock { font-variant-numeric: tabular-nums; font-weight: 700; }
   .hero__diamond { font-size: 8px; color: var(--fg); }
 
   .hero__star-icon {
@@ -434,6 +428,16 @@
   }
 
   [data-theme="light"] .hero__star-icon { filter: invert(0); }
+
+  .hero__arrow {
+    width: 14px; height: 14px;
+    object-fit: contain;
+    filter: invert(1);
+    vertical-align: middle;
+    margin: 0 2px;
+  }
+
+  [data-theme="light"] .hero__arrow { filter: invert(0); }
 
   /* H1 */
   .hero__name {
@@ -464,7 +468,7 @@
 
   @media (max-width: 768px) {
     .hero .container { padding-top: 80px; }
-    .hero__topbar { font-size: 12px; margin-bottom: 40px; }
+    .hero__topbar { font-size: 13px; margin-bottom: 40px; }
     .hero__name { font-size: clamp(40px, 11vw, 64px); margin-bottom: 56px; }
     .hero__row { font-size: 16px; }
   }
@@ -614,6 +618,44 @@
   .exp__item:nth-child(4) { transition-delay: 0.26s; }
 
   .exp__item.is-expanded { background: var(--bg-card); }
+
+  /* Experience header — total right-aligned */
+  .exp__section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+
+  .exp__total-badge {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+
+  .exp__total-badge b {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* Tenure pill on each card */
+  .exp__tenure {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fg-4);
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
 
   /* Image wrapper — fixed size, clips the emoji */
   .exp__image-wrap {
@@ -1365,19 +1407,19 @@
 
     <div class="hero__topbar">
       <div class="hero__topbar-left">
-        Mumbai, India → <b><span class="hero__clock" id="heroClock">--:--:-- --</span></b>
+        Mumbai, India <img src="icons/Arrow%20pointing%20right.png" alt="→" class="hero__arrow" /> <b><span class="hero__clock" id="heroClock">--:--:-- --</span></b>
       </div>
       <div class="hero__topbar-right">
-        <img src="icons/Star%20icon.png" alt="" class="hero__star-icon" /> Status → <b>Open to work</b>
+        ✦ Status <img src="icons/Arrow%20pointing%20right.png" alt="→" class="hero__arrow" /> <b>Open to work</b>
       </div>
     </div>
 
     <h1 class="hero__name">Hi, this is Mohammed Izhan.</h1>
 
     <div class="hero__rows">
-      <div class="hero__row">Currently → <b>APM @ StackBox</b></div>
-      <div class="hero__row">Previously → <b>Edgistify ▪ Mindseed ▪ DTDC</b></div>
-      <div class="hero__row">Delivering → <b>Warehouse ops at scale 📦</b></div>
+      <div class="hero__row">Currently <img src="icons/Arrow%20pointing%20right.png" alt="→" class="hero__arrow" /><b> Project Manager @ StackBox</b></div>
+      <div class="hero__row">Previously <img src="icons/Arrow%20pointing%20right.png" alt="→" class="hero__arrow" /><b> Edgistify • Mindseed • DTDC</b></div>
+      <div class="hero__row">Delivering <img src="icons/Arrow%20pointing%20right.png" alt="→" class="hero__arrow" /><b> Warehouse ops at scale 📦</b></div>
     </div>
 
   </div>
@@ -1453,7 +1495,12 @@
 <section id="work">
   <div class="container container--narrow">
     <div class="label reveal">Work</div>
-    <h2 class="reveal">History.</h2>
+    <div class="exp__section-header reveal">
+      <h2>History.</h2>
+      <span class="exp__total-badge">
+        ✦ Years of Experience <img src="icons/Arrow%20pointing%20right.png" alt="→" class="hero__arrow" /> <b>6+</b>
+      </span>
+    </div>
     <div class="exp__list">
 
       <div class="exp__item" onclick="openModal('stackbox')">
@@ -1461,6 +1508,7 @@
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Assistant Project Manager</h3>
+            <span class="exp__tenure">2 yr 7 mo</span>
             <span class="exp__period">Sep 2023 — Present</span>
           </div>
           <div class="exp__company">StackBOX</div>
@@ -1482,6 +1530,7 @@
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Manager, Solution Design</h3>
+            <span class="exp__tenure">1 yr 1 mo</span>
             <span class="exp__period">Aug 2022 — Sep 2023</span>
           </div>
           <div class="exp__company">Edgistify</div>
@@ -1503,6 +1552,7 @@
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Manager, Procurement & Supply Chain</h3>
+            <span class="exp__tenure">8 mo</span>
             <span class="exp__period">Dec 2021 — Aug 2022</span>
           </div>
           <div class="exp__company">Mindseed Education</div>
@@ -1524,6 +1574,7 @@
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Branch Manager</h3>
+            <span class="exp__tenure">2 yr</span>
             <span class="exp__period">Jan 2020 — Dec 2021</span>
           </div>
           <div class="exp__company">DTDC Express</div>
@@ -1997,7 +2048,7 @@
       timeZone: 'Asia/Kolkata',
       hour: '2-digit', minute: '2-digit', second: '2-digit',
       hour12: true
-    }).format(now);
+    }).format(now).toUpperCase();
     const el = document.getElementById('heroClock');
     if (el) el.textContent = ist;
   }
