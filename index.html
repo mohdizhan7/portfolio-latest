@@ -2127,10 +2127,12 @@
   const loader = document.getElementById('page-loader');
 
   function dismissLoader() {
+    if (dismissLoader.called) return;
+    dismissLoader.called = true;
     document.body.classList.remove('is-loading');
     if (loader) {
       loader.classList.add('is-hiding');
-      setTimeout(() => loader.remove(), 520);
+      setTimeout(() => { if (loader.parentNode) loader.remove(); }, 520);
     }
   }
 
@@ -2304,9 +2306,6 @@
   }, { passive: true });
 
   // ===== SMOOTH & FLUID ANIMATION SYSTEM =====
-  // Wait for fonts before starting — prevents layout shift on Vercel
-  document.fonts.ready.then(() => {
-
   const animationConfig = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -2480,7 +2479,7 @@
     console.error('Smooth scroll init error:', e);
   }
 
-  }); // end document.fonts.ready — animations now triggered after fonts ready
+
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // GLOBAL ERROR HANDLING
