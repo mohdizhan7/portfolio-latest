@@ -86,6 +86,18 @@
   .reveal { backface-visibility: hidden; }
   .project, .exp__item { backface-visibility: hidden; }
 
+  /* Smooth theme switching — only active during toggle */
+  .theme-transitioning,
+  .theme-transitioning *,
+  .theme-transitioning *::before,
+  .theme-transitioning *::after {
+    transition: background 0.25s ease,
+                background-color 0.25s ease,
+                color 0.25s ease,
+                border-color 0.25s ease,
+                filter 0.25s ease !important;
+  }
+
 
   /* Scroll progress */
   .scroll-bar {
@@ -2030,17 +2042,19 @@
   const root = document.documentElement;
 
   function applyTheme(theme, animate) {
-    if (!animate) {
-      // Instant switch — block all transitions briefly
+    if (animate) {
+      // Add transition class, swap theme, remove after transition
+      root.classList.add('theme-transitioning');
+      root.setAttribute('data-theme', theme);
+      setTimeout(() => root.classList.remove('theme-transitioning'), 300);
+    } else {
+      // Initial load — instant, no transition
       const style = document.createElement('style');
       style.textContent = '*, *::before, *::after { transition: none !important; }';
       document.head.appendChild(style);
       root.setAttribute('data-theme', theme);
-      // Force repaint then remove the block
       window.getComputedStyle(document.body).background;
       requestAnimationFrame(() => requestAnimationFrame(() => style.remove()));
-    } else {
-      root.setAttribute('data-theme', theme);
     }
     themeToggle.textContent = theme === 'light' ? '☾' : '☀';
     try { localStorage.setItem('iz_theme', theme); } catch(e) {}
@@ -2054,7 +2068,7 @@
   applyTheme(savedTheme || (systemDark ? 'dark' : 'light'), false);
 
   themeToggle.addEventListener('click', () => {
-    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', false);
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
   });
 
   /* ── Live IST clock ── */
