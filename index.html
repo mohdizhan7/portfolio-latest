@@ -81,10 +81,7 @@
   section { contain: layout style; }
   .reveal { backface-visibility: hidden; }
   .project, .exp__item { backface-visibility: hidden; }
-  #about, #work, #projects, #skills, #achievements, #credentials, #writing, #contact {
-    content-visibility: auto;
-    contain-intrinsic-size: 0 800px;
-  }
+
 
   /* Scroll progress */
   .scroll-bar {
@@ -339,7 +336,7 @@
   .reveal {
     opacity: 0;
     transform: translateY(30px);
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .reveal.is-visible {
@@ -347,12 +344,12 @@
     transform: translateY(0);
   }
 
-  .reveal:nth-child(1) { animation-delay: 0.05s; }
-  .reveal:nth-child(2) { animation-delay: 0.1s; }
-  .reveal:nth-child(3) { animation-delay: 0.15s; }
-  .reveal:nth-child(4) { animation-delay: 0.2s; }
-  .reveal:nth-child(5) { animation-delay: 0.25s; }
-  .reveal:nth-child(6) { animation-delay: 0.3s; }
+  .reveal:nth-child(1) { animation-delay: 0.03s; }
+  .reveal:nth-child(2) { animation-delay: 0.06s; }
+  .reveal:nth-child(3) { animation-delay: 0.09s; }
+  .reveal:nth-child(4) { animation-delay: 0.12s; }
+  .reveal:nth-child(5) { animation-delay: 0.15s; }
+  .reveal:nth-child(6) { animation-delay: 0.18s; }
 
   @keyframes heroBgIn {
     from { opacity: 0; transform: scale(1.04); }
@@ -369,7 +366,7 @@
     overflow: hidden;
     background: var(--hero-bg);
     transition: none;
-    animation: heroBgIn 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    animation: heroBgIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
   }
 
   /* Mouse-tracking layer — subtle highlight over static gradient */
@@ -404,7 +401,7 @@
   .hero__name,
   .hero__rows .hero__row {
     opacity: 0;
-    animation: preFadeIn 0.9s ease forwards;
+    animation: preFadeIn 0.5s ease forwards;
   }
 
   .hero__topbar-left        { animation-delay: 0.12s; }
@@ -534,7 +531,7 @@
     display: inline-block;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
   }
 
   .stat.is-visible .stat__num {
@@ -595,7 +592,7 @@
     background: var(--fg);
     border-radius: 2px;
     width: 0%;
-    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .bar__item.is-visible .bar__fill {
@@ -628,7 +625,7 @@
   }
 
   .exp__item:nth-child(1) { transition-delay: 0.05s; }
-  .exp__item:nth-child(2) { transition-delay: 0.12s; }
+  .exp__item:nth-child(2) { transition-delay: 0.07s; }
   .exp__item:nth-child(3) { transition-delay: 0.19s; }
   .exp__item:nth-child(4) { transition-delay: 0.26s; }
 
@@ -854,7 +851,7 @@
     overflow: hidden;
     border-radius: 12px;
     opacity: 0;
-    transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+    transition: opacity 0.25s cubic-bezier(0.4,0,0.2,1);
     z-index: 0;
   }
 
@@ -871,7 +868,7 @@
     height: 100%;
     object-fit: cover;
     transform: scale(1.08);
-    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
     will-change: transform;
   }
 
@@ -1201,7 +1198,7 @@
     max-height: 80vh;
     overflow-y: auto;
     border-radius: 4px;
-    animation: modalSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: modalSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @keyframes modalSlideIn {
