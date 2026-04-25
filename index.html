@@ -1,0 +1,2472 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mohammed Izhan Shaikh — Project Manager</title>
+<link rel="preload" href="dm-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="dm-sans-700.woff2" as="font" type="font/woff2" crossorigin />
+<!-- Fonts self-hosted — no external dependency -->
+<style>
+  @font-face { font-family: 'DM Sans'; src: url('dm-sans-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'DM Sans'; src: url('dm-sans-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'DM Sans'; src: url('dm-sans-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'DM Sans'; src: url('dm-sans-800.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+</style>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── Theme tokens ── */
+  :root {
+    --bg:        #e8e8e4;
+    --bg-nav:    rgba(232,232,228,0.85);
+    --bg-card:   rgba(0,0,0,0.04);
+    --bg-card-h: rgba(0,0,0,0.07);
+    --fg:        #0a0a0a;
+    --fg-2:      rgba(10,10,10,0.65);
+    --fg-3:      rgba(10,10,10,0.45);
+    --fg-4:      rgba(10,10,10,0.3);
+    --line:      rgba(10,10,10,0.1);
+    --line-2:    rgba(10,10,10,0.06);
+    --blob:      rgba(80,100,200,0.22);
+    --blob-2:    rgba(120,80,220,0.12);
+    --invert:    #fff;
+    --hero-bg:   radial-gradient(ellipse 110% 90% at 75% 50%, rgba(80,100,190,0.75) 0%, rgba(90,110,200,0.4) 35%, rgba(70,90,170,0.1) 60%, #e8e8e4 80%);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    scroll-padding-top: 80px;
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-weight: 400;
+  }
+
+  a { color: var(--fg); text-decoration: none; }
+
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container { max-width: 1200px; width: 100%; margin: 0 auto; }
+
+
+  /* Scroll progress */
+  .scroll-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--fg);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    z-index: 200;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border-bottom: 1px solid var(--fg-2);
+    transition: none;
+  }
+
+  .nav__left {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .nav__mark {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .nav__links a {
+    color: var(--fg);
+    transition: opacity 0.2s;
+  }
+
+  .nav__links a:hover { opacity: 0.6; }
+
+  /* Nav right actions */
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav__icon {
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+  }
+
+  .nav__icon:hover { opacity: 0.5; }
+
+  /* PNG icons — invert based on theme */
+  .nav__icon img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+    /* Icons are dark by default — invert in dark mode */
+    filter: invert(1);
+    transition: filter 0.2s;
+  }
+
+  [data-theme="light"] .nav__icon img {
+    filter: invert(0);
+  }
+
+  /* LinkedIn "in" wordmark */
+  .nav__li {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: Georgia, serif;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--fg);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(12px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-12px);
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    backdrop-filter: blur(12px);
+    z-index: 99;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    padding: 120px 48px;
+    transition: none;
+  }
+
+  .mobile-menu.active { display: flex; }
+
+  .mobile-menu a {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--fg);
+    transition: opacity 0.3s;
+  }
+
+  .mobile-menu a:hover { opacity: 0.5; }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 32px; right: 48px;
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav__links {
+      display: none;
+    }
+  }
+
+
+  /* Typography */
+  .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+
+  h1, h2, h3 {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  h1 {
+    font-size: clamp(72px, 15vw, 240px);
+  }
+
+  h2 {
+    font-size: clamp(48px, 8vw, 120px);
+  }
+
+  h3 {
+    font-size: 32px;
+  }
+
+  /* ===== LEFT COAST ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scanLight {
+    from { transform: translate(-120%) skew(-20deg); }
+    to { transform: translate(120%) skew(-20deg); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -100% top; }
+    100% { background-position: 250% top; }
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reveal.is-visible {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .reveal.is-visible:nth-child(1) { animation-delay: 0s; }
+  .reveal.is-visible:nth-child(2) { animation-delay: 0.08s; }
+  .reveal.is-visible:nth-child(3) { animation-delay: 0.16s; }
+  .reveal.is-visible:nth-child(4) { animation-delay: 0.24s; }
+  .reveal.is-visible:nth-child(5) { animation-delay: 0.32s; }
+  .reveal.is-visible:nth-child(6) { animation-delay: 0.40s; }
+
+  @keyframes heroBgIn {
+    from { opacity: 0; transform: scale(1.04); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* Hero — permanent gradient background */
+  .hero {
+    min-height: 100vh;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--hero-bg);
+    transition: none;
+    /* no fade-in — instant bg */
+  }
+
+  /* Mouse-tracking layer — subtle highlight over static gradient */
+  .hero-blob {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.07) 0%, transparent 70%);
+    filter: blur(50px);
+    pointer-events: none;
+    top: 0; left: 0;
+    z-index: 0;
+    will-change: transform;
+    transform: translate(calc(50vw - 250px), calc(50vh - 250px));
+  }
+
+  .hero .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-top: 64px;
+  }
+
+
+  /* Topbar */
+  .hero__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--fg-2);
+    margin-bottom: 64px;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: var(--fg-2);
+    letter-spacing: 0.01em;
+  }
+
+  .hero__topbar-left { display: flex; gap: 5px; align-items: center; }
+  .hero__topbar-right { display: flex; gap: 5px; align-items: center; }
+  .hero__topbar b { font-weight: 700; color: var(--fg); }
+  .hero__clock { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .hero__diamond { font-size: 8px; color: var(--fg); }
+
+  .hero__star-icon {
+    width: 14px; height: 14px;
+    object-fit: contain;
+    filter: invert(1);
+    margin-right: 2px;
+    vertical-align: middle;
+  }
+
+  [data-theme="light"] .hero__star-icon { filter: invert(0); }
+
+  .hero__arrow {
+    width: 14px; height: 14px;
+    object-fit: contain;
+    filter: invert(1);
+    vertical-align: middle;
+    margin: 0 2px;
+  }
+
+  [data-theme="light"] .hero__arrow { filter: invert(0); }
+
+  /* H1 */
+  .hero__name {
+    font-size: clamp(56px, 7.5vw, 100px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--fg);
+    margin-bottom: 96px;
+  }
+
+  /* Rows */
+  .hero__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hero__row {
+    font-size: 18px;
+    color: var(--fg);
+    font-weight: 400;
+  }
+
+  .hero__row b {
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .hero .container { padding-top: 80px; }
+    .hero__topbar { font-size: 13px; margin-bottom: 40px; }
+    .hero__name { font-size: clamp(40px, 11vw, 64px); margin-bottom: 56px; }
+    .hero__row { font-size: 16px; }
+  }
+
+  /* About */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about__left { }
+
+  .about__label { margin-bottom: 32px; }
+
+  .about__title { margin-bottom: 40px; }
+
+  .about__body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--fg-2);
+  }
+
+  .about__body p {
+    margin-bottom: 20px;
+  }
+
+  .about__right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 500px;
+  }
+
+  .experience-highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: 100%;
+  }
+
+  .exp-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .exp-years, .exp-sites {
+    flex-shrink: 0;
+  }
+
+  .exp-years__num, .exp-sites__num {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .exp-years__label, .exp-sites__label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-top: 6px;
+  }
+
+  .exp-years__bar, .exp-sites__bar {
+    flex: 1;
+    height: 3px;
+    background: var(--fg-2);
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .exp-years__bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 60%;
+    background: var(--fg-1);
+    border-radius: 2px;
+  }
+
+  .exp-sites__bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 83%;
+    background: var(--fg-1);
+    border-radius: 2px;
+  }
+
+  /* Animated counters */
+  .stat {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stat:hover { transform: scale(1.06); }
+
+  .stat__num {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+  }
+
+  .stat.is-visible .stat__num {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stat__label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+
+  /* Bar charts */
+  .bars {
+    margin-top: 64px;
+  }
+
+  .bars__title {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 28px;
+  }
+
+  .bar__item {
+    margin-bottom: 20px;
+  }
+
+  .bar__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .bar__label {
+    font-size: 13px;
+    color: var(--fg-2);
+  }
+
+  .bar__value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  .bar__track {
+    height: 2px;
+    background: var(--bg-card);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar__fill {
+    height: 100%;
+    background: var(--fg);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bar__item.is-visible .bar__fill {
+    width: var(--pct);
+  }
+
+  /* Experience — Smooth expand (GPU-accelerated) */
+  .exp__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+  }
+
+  .exp__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    opacity: 1;
+    transform: none;
+  }
+
+  .exp__item.is-visible {
+    animation: none;
+  }
+
+  .exp__item.is-visible:nth-child(1) { animation-delay: none; }
+  .exp__item.is-visible:nth-child(2) { animation-delay: none; }
+  .exp__item.is-visible:nth-child(3) { animation-delay: none; }
+  .exp__item.is-visible:nth-child(4) { animation-delay: none; }
+
+  .exp__item.is-expanded { background: var(--bg-card); transition: background 0.2s; }
+
+  /* Experience header — total right-aligned */
+  .exp__section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+
+  .exp__total-badge {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+
+  .exp__total-badge b {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* Tenure pill on each card */
+  .exp__tenure {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fg-4);
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  /* Image wrapper */
+  .exp__image-wrap {
+    flex-shrink: 0;
+    width: 80px;
+    margin: 20px 28px 20px 0;
+    will-change: width;
+    transition: width 0.38s cubic-bezier(0.4,0,0.2,1),
+                margin 0.38s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .exp__item.is-expanded .exp__image-wrap {
+    width: 220px;
+    margin: 28px 36px 28px 0;
+  }
+
+  .exp__image {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: aspect-ratio 0.38s cubic-bezier(0.4,0,0.2,1),
+                border-color 0.2s;
+  }
+
+  .exp__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+  }
+
+  .exp__item.is-expanded .exp__image {
+    aspect-ratio: 4/3;
+    border-color: var(--fg-4);
+  }
+
+  .exp__item.is-expanded .exp__image img {
+    padding: 16px;
+  }
+
+  /* Content */
+  .exp__content {
+    padding: 20px 0;
+    min-width: 0;
+    transition: padding 0.38s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .exp__item.is-expanded .exp__content { padding: 28px 0; }
+
+  .exp__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .exp__title {
+    font-size: clamp(18px, 2.4vw, 28px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .exp__period {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--fg-4);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .exp__company {
+    font-size: 11px;
+    color: var(--fg-4);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* Expanded detail — grid 0fr trick for smooth height */
+  .exp__expand {
+    display: grid;
+    grid-template-rows: 0fr;
+    will-change: grid-template-rows;
+    transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: 0;
+  }
+
+  .exp__item.is-expanded .exp__expand {
+    grid-template-rows: 1fr;
+    margin-top: 16px;
+  }
+
+  .exp__expand-inner {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+
+  .exp__item.is-expanded .exp__expand-inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .exp__expand-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .exp__expand-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--fg-2);
+  }
+
+  .exp__expand-highlight {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px 16px;
+  }
+
+  @media (max-width: 768px) {
+    .exp__item.is-expanded .exp__image { width: 120px; height: 120px; font-size: 56px; }
+    .exp__expand { grid-template-columns: 1fr; }
+    .exp__period { display: none; }
+  }
+
+  /* Projects — Portrait cards, Left Coast hover */
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 80px;
+  }
+
+  @media (max-width: 1024px) { .projects__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .projects__grid { grid-template-columns: 1fr; } }
+
+  .project {
+    height: clamp(360px, 38vw, 500px);
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.35s, transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .project.is-visible {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .project:hover {
+    border-color: var(--fg-4);
+    transform: translateY(-6px);
+  }
+
+  .project.is-visible:hover {
+    transform: translateY(-6px);
+  }
+
+  /* Cover image — hidden by default, zooms in on hover */
+  .project__cover {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.4,0,0.2,1);
+    z-index: 0;
+  }
+
+  .project__cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
+  }
+
+  .project__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.08);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+
+  .project:hover .project__cover {
+    opacity: 1;
+  }
+
+  .project:hover .project__cover img {
+    transform: scale(1);
+  }
+
+  /* Number — top left, fades out on hover */
+  .project-number {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    color: var(--fg-4);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.25s, color 0.25s;
+  }
+
+  .project:hover .project-number {
+    opacity: 0;
+  }
+
+  /* Bottom content */
+  .project__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .project:hover .project__bottom {
+    transform: translateY(-8px);
+  }
+
+  .project__icon {
+    font-size: 26px;
+    line-height: 1;
+    transition: opacity 0.25s;
+  }
+
+  .project:hover .project__icon {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .project__title {
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+  }
+
+  .project__subtitle {
+    font-size: 12px;
+    color: var(--fg-3);
+    line-height: 1.5;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.3s cubic-bezier(0.4,0,0.2,1) 0.05s;
+  }
+
+  .project:hover .project__subtitle {
+    max-height: 60px;
+    opacity: 1;
+  }
+
+  .project__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.3s cubic-bezier(0.4,0,0.2,1) 0.1s;
+  }
+
+  .project:hover .project__tags {
+    max-height: 60px;
+    opacity: 1;
+  }
+
+  .project__tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--fg-2);
+  }
+
+  /* Read CTA — slides up on hover */
+  .project__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 10px 18px;
+    background: var(--fg);
+    color: var(--invert);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    border-radius: 4px;
+    width: fit-content;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1) 0.12s,
+                transform 0.3s cubic-bezier(0.4,0,0.2,1) 0.12s;
+  }
+
+  .project:hover .project__cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered project card reveals */
+  .project:nth-child(1).is-visible { animation-delay: 0.05s; }
+  .project:nth-child(2).is-visible { animation-delay: 0.15s; }
+  .project:nth-child(3).is-visible { animation-delay: 0.25s; }
+  .project:nth-child(4).is-visible { animation-delay: 0.35s; }
+  .project:nth-child(5).is-visible { animation-delay: 0.15s; }
+  .project:nth-child(6).is-visible { animation-delay: 0.25s; }
+  .project:nth-child(7).is-visible { animation-delay: 0.35s; }
+  .project:nth-child(8).is-visible { animation-delay: 0.45s; }
+
+  /* Skills */
+  .skills__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 80px;
+  }
+
+  .skills__col { }
+
+  .skills__col h3 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .skills__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skills__item {
+    font-size: 12px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+  }
+
+  .skills__item:hover {
+    border-color: var(--fg-3);
+    background: var(--bg-card);
+    transform: translateY(-2px);
+  }
+
+  /* Achievements */
+  .ach__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 80px;
+  }
+
+  .ach__item { text-align: center; }
+
+  .ach__num {
+    font-size: clamp(48px, 8vw, 100px);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .ach__label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--fg-3);
+  }
+
+  /* Credentials */
+  .cred__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 80px;
+  }
+
+  .cred__col h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .cred__col p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--fg-2);
+    margin-bottom: 16px;
+  }
+
+  .cred__list {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--fg-2);
+  }
+
+  .cred__list li {
+    margin-bottom: 8px;
+  }
+
+  /* Writing */
+  .writing__intro {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .writing__list {
+    list-style: none;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .writing__item {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px;
+    gap: 32px;
+    align-items: center;
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+
+  .writing__item:hover {
+    border-color: var(--fg-4);
+    background: var(--bg-card);
+    transform: translateX(12px);
+  }
+
+  .writing__num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--fg-4);
+  }
+
+  .writing__title {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--fg);
+  }
+
+  .writing__status {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    text-align: right;
+  }
+
+  /* Contact */
+  .contact__heading {
+    margin-bottom: 60px;
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 80px;
+  }
+
+  .contact__link {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    transition: all 0.3s;
+  }
+
+  .contact__link:hover {
+    border-color: var(--fg);
+    transform: translateX(8px);
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 48px;
+  }
+
+  .modal.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal__inner {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 60px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 4px;
+    animation: modalSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes modalSlideIn {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal__title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .modal__subtitle {
+    font-size: 16px;
+    color: var(--fg-3);
+    margin-bottom: 40px;
+  }
+
+  .modal__meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding: 40px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+
+  .modal__meta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin-bottom: 8px;
+  }
+
+  .modal__meta-val {
+    font-size: 14px;
+    color: var(--fg);
+  }
+
+  .modal__body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--fg-2);
+  }
+
+  .modal__body p {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 100px 32px; }
+    nav { padding: 24px 32px; }
+    .nav__links { gap: 24px; font-size: 11px; }
+    .hero { padding: 100px 32px 80px; }
+    .hero__meta { grid-template-columns: 1fr; gap: 24px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    
+    /* Work History mobile */
+    .exp__item {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      direction: ltr;
+    }
+    .exp__item:nth-child(even) {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+    .exp__item-number {
+      position: static;
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: var(--fg-4);
+    }
+    .exp__image {
+      height: 250px;
+      order: -1;
+    }
+    
+  @media (max-width: 1200px) {
+    .projects__grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(14px, 2.5vw, 24px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects__grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: clamp(12px, 2vw, 20px);
+    }
+    .projects__grid::before {
+      display: none;
+    }
+    .project {
+      min-height: clamp(250px, 35vw, 380px);
+      padding: clamp(16px, 4vw, 24px);
+    }
+    .project-number {
+      font-size: clamp(36px, 6vw, 56px);
+      margin-bottom: clamp(12px, 2.5vw, 18px);
+    }
+    .project__image {
+      height: clamp(100px, 20vw, 160px);
+      font-size: clamp(40px, 10vw, 64px);
+      margin-bottom: clamp(10px, 1.5vw, 12px);
+    }
+    .project__title {
+      font-size: clamp(14px, 3vw, 16px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .projects__grid {
+      grid-template-columns: 1fr;
+      gap: clamp(12px, 4vw, 16px);
+    }
+    .project {
+      min-height: auto;
+      min-height: 220px;
+      padding: clamp(16px, 3vw, 20px);
+    }
+    .project-number {
+      font-size: clamp(32px, 5vw, 44px);
+      margin-bottom: clamp(10px, 2vw, 14px);
+    }
+    .project__image {
+      height: clamp(80px, 18vw, 120px);
+      font-size: clamp(32px, 8vw, 48px);
+      margin-bottom: clamp(8px, 1.5vw, 10px);
+    }
+    .project__title {
+      font-size: clamp(13px, 2.5vw, 14px);
+    }
+    .project__subtitle {
+      font-size: clamp(11px, 2vw, 12px);
+    }
+  }
+    .skills__grid { grid-template-columns: 1fr; }
+    .ach__grid { grid-template-columns: repeat(2, 1fr); }
+    .cred__grid { grid-template-columns: 1fr; }
+    .contact__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 500px) {
+    section { padding: 80px 24px; }
+    nav { padding: 20px 24px; gap: 20px; }
+    .nav__links { gap: 16px; font-size: 11px; }
+    .hero { padding: 80px 24px 60px; }
+    h1 { font-size: 48px; }
+    h2 { font-size: 32px; }
+    .hero__meta { gap: 16px; }
+    .ach__grid { grid-template-columns: 1fr; }
+    .modal__inner { padding: 40px 32px; }
+    .writing__item { grid-template-columns: 40px 1fr; gap: 16px; }
+    
+    /* Projects very small screens */
+    .projects__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .project {
+      aspect-ratio: auto;
+      min-height: 250px;
+    }
+    .project-number { font-size: 36px; }
+    .project__image { height: 120px; }
+    .project__title { font-size: 16px; }
+  }
+
+
+
+  /* ── Loading screen ── */
+  #site-loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 24px;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #site-loader.ready { opacity: 0; visibility: hidden; pointer-events: none; }
+  .loader__logo { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--fg); }
+  .loader__track { width: 48px; height: 1px; background: var(--line); border-radius: 1px; overflow: hidden; }
+  .loader__fill { height: 100%; width: 0%; background: var(--fg); transition: width 0.3s ease; }
+  .loader__label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-3); }
+  body.loading > *:not(#site-loader) { visibility: hidden; }
+
+
+  /* ═══════════════════════════════════════════════
+     ANIMATION SYSTEM — single source of truth
+     Uses transition (not animation) for scroll reveals:
+     reliable, composable, no replay issues
+  ═══════════════════════════════════════════════ */
+
+  /* Hero — CSS animation on load, no JS needed */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .hero__topbar-left  { opacity: 1; }
+  .hero__topbar-right { opacity: 1; }
+  .hero__name         { opacity: 1; }
+  .hero__rows .hero__row:nth-child(1) { opacity: 1; }
+  .hero__rows .hero__row:nth-child(2) { opacity: 1; }
+  .hero__rows .hero__row:nth-child(3) { opacity: 1; }
+
+  /* Scroll reveals — transition-based, triggered by .is-visible class */
+  .reveal,
+  .exp__item,
+  .project,
+  .stat,
+  .bar__item {
+    opacity: 0;
+    transform: translateY(18px) translate3d(0, 0, 0);
+    transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1),
+                transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    backface-visibility: hidden;
+  }
+
+  .reveal.is-visible,
+  .exp__item.is-visible,
+  .project.is-visible,
+  .stat.is-visible,
+  .bar__item.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Stagger delays */
+  .exp__item:nth-child(1) { transition-delay: 0.0s; }
+  .exp__item:nth-child(2) { transition-delay: 0.07s; }
+  .exp__item:nth-child(3) { transition-delay: 0.14s; }
+  .exp__item:nth-child(4) { transition-delay: 0.21s; }
+
+  .projects__grid .project:nth-child(1) { transition-delay: 0.0s; }
+  .projects__grid .project:nth-child(2) { transition-delay: 0.07s; }
+  .projects__grid .project:nth-child(3) { transition-delay: 0.14s; }
+  .projects__grid .project:nth-child(4) { transition-delay: 0.21s; }
+
+  /* Stat counter slide-in */
+  .stat:nth-child(1) { transition-delay: 0.0s; }
+  .stat:nth-child(2) { transition-delay: 0.08s; }
+  .stat:nth-child(3) { transition-delay: 0.16s; }
+  .stat:nth-child(4) { transition-delay: 0.24s; }
+
+  /* Bar charts */
+  .bar__item:nth-child(1) { transition-delay: 0.0s; }
+  .bar__item:nth-child(2) { transition-delay: 0.06s; }
+  .bar__item:nth-child(3) { transition-delay: 0.12s; }
+  .bar__item:nth-child(4) { transition-delay: 0.18s; }
+
+</style>
+</head>
+<body class="loading">
+<div id="site-loader">
+  <div class="loader__logo">IZ</div>
+  <div class="loader__track"><div class="loader__fill" id="loaderFill"></div></div>
+  <div class="loader__label" id="loaderLabel">Loading</div>
+</div>
+
+  <div class="loader__track">
+    <div class="loader__progress" id="loaderProgress"></div>
+  </div>
+  <div class="loader__status" id="loaderStatus">Loading</div>
+</div>
+
+<div class="scroll-bar"></div>
+
+<nav>
+  <div class="nav__left">
+    <div class="nav__mark">Mohammed Izhan</div>
+    <div class="nav__links">
+      <a href="#work">Work</a>
+      <a href="about.html">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="nav__actions">
+    <!-- CV icon -->
+    <a href="Resume_Izhan.pdf" target="_blank" rel="noreferrer" class="nav__icon" title="View CV">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="12" y1="11" x2="12" y2="17"></line>
+        <line x1="9" y1="14" x2="15" y2="14"></line>
+      </svg>
+    </a>
+    <!-- LinkedIn icon -->
+    <a href="https://www.linkedin.com/in/mohmmedizhan/" target="_blank" rel="noreferrer" class="nav__icon" title="LinkedIn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+      </svg>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#work" onclick="closeMobileMenu()">Work</a>
+  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-blob" id="heroBlob"></div>
+  <div class="container">
+
+    <div class="hero__topbar">
+      <div class="hero__topbar-left">
+        Mumbai, India → <b><span class="hero__clock" id="heroClock">--:--:-- --</span></b>
+      </div>
+      <div class="hero__topbar-right">
+        ✦ Status → <b>Open to work</b>
+      </div>
+    </div>
+
+    <h1 class="hero__name">Hi, this is Mohammed Izhan.</h1>
+
+    <div class="hero__rows">
+      <div class="hero__row">Currently →<b> Project Manager @ StackBox</b></div>
+      <div class="hero__row">Previously →<b> Edgistify • Mindseed • DTDC</b></div>
+      <div class="hero__row">Delivering →<b> Warehouse ops at scale 📦</b></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="work">
+  <div class="container">
+    <div class="label reveal">Work</div>
+    <div class="exp__section-header reveal">
+      <h2>History.</h2>
+      <span class="exp__total-badge">
+        ✦ Years of Experience → <b>6+</b>
+      </span>
+    </div>
+    <div class="exp__list">
+
+      <div class="exp__item" onclick="openModal('stackbox')">
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="SBX Logo_PNG.webp" alt="StackBOX" /></div></div>
+        <div class="exp__content">
+          <div class="exp__header">
+            <h3 class="exp__title">Assistant Project Manager</h3>
+            <span class="exp__tenure">2 yr 7 mo</span>
+            <span class="exp__period">Sep 2023 — Present</span>
+          </div>
+          <div class="exp__company">StackBOX</div>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">WMS implementations for P&G, ITC, and Nestlé. Warehouse layouts, hardware planning, system config, and go-live.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">Currently</span>
+              <p class="exp__expand-text">PTL rollout across 50+ sites in the Philippines — sole implementation lead.</p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="exp__item" onclick="openModal('edgistify')">
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="Edgistify Logo.webp" alt="Edgistify" /></div></div>
+        <div class="exp__content">
+          <div class="exp__header">
+            <h3 class="exp__title">Manager, Solution Design</h3>
+            <span class="exp__tenure">1 yr 1 mo</span>
+            <span class="exp__period">Aug 2022 — Sep 2023</span>
+          </div>
+          <div class="exp__company">Edgistify</div>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">End-to-end supply chain solution design for 3PL and e-commerce clients. BRD, UAT, and go-live across 12+ warehouses.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">Outcome</span>
+              <p class="exp__expand-text">25% avg productivity uplift. 5 concurrent go-lives. 18% reduction in implementation cost.</p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="exp__item" onclick="openModal('mindseed')">
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="Mindseed Education Overview.webp" alt="Mindseed Education" /></div></div>
+        <div class="exp__content">
+          <div class="exp__header">
+            <h3 class="exp__title">Manager, Procurement & Supply Chain</h3>
+            <span class="exp__tenure">8 mo</span>
+            <span class="exp__period">Dec 2021 — Aug 2022</span>
+          </div>
+          <div class="exp__company">Mindseed Education</div>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">Built centralised procurement from scratch. Renegotiated 45+ vendor contracts, standardised SKUs, built real-time spend tracker.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">Outcome</span>
+              <p class="exp__expand-text">~15% cost savings. Procurement now scales with the business instead of firefighting.</p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="exp__item" onclick="openModal('dtdc')">
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="DTDC Express Limited Logo.webp" alt="DTDC Express" /></div></div>
+        <div class="exp__content">
+          <div class="exp__header">
+            <h3 class="exp__title">Branch Manager</h3>
+            <span class="exp__tenure">2 yr</span>
+            <span class="exp__period">Jan 2020 — Dec 2021</span>
+          </div>
+          <div class="exp__company">DTDC Express</div>
+          <div class="exp__expand"><div class="exp__expand-inner">
+            <div>
+              <span class="exp__expand-label">The Work</span>
+              <p class="exp__expand-text">50 staff, 70 vehicles, 60K shipments/day. One of the youngest branch managers in the DTDC network.</p>
+            </div>
+            <div class="exp__expand-highlight">
+              <span class="exp__expand-label">The Crisis</span>
+              <p class="exp__expand-text">Built an alternative last-mile network in 48h during COVID. Cleared 150K backlog in 7 days. 98% on-time delivery.</p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="label reveal">Projects</div>
+    <h2 class="reveal">Case studies.</h2>
+    <div class="projects__grid">
+      <div class="project reveal" onclick="openModal('hul')">
+        <div class="project__cover"><img loading="lazy" src="hul-samadhan.webp" alt="HUL Samadhan" /></div>
+        <div class="project-number">01.</div>
+        <div class="project__bottom">
+          <div class="project__icon">📦</div>
+          <h3 class="project__title">HUL Samadhan</h3>
+          <p class="project__subtitle">Warehouse automation UAT & go-live</p>
+          <div class="project__tags">
+            <span class="project__tag">WMS</span>
+            <span class="project__tag">UAT</span>
+            <span class="project__tag">PTL</span>
+          </div>
+          <div class="project__cta">Read case study →</div>
+        </div>
+      </div>
+
+      <div class="project reveal" onclick="openModal('25')">
+        <div class="project__cover"><img loading="lazy" src="25-percent.webp" alt="The 25% Project" /></div>
+        <div class="project-number">02.</div>
+        <div class="project__bottom">
+          <div class="project__icon">📈</div>
+          <h3 class="project__title">The 25% Project</h3>
+          <p class="project__subtitle">Picking workflow redesign</p>
+          <div class="project__tags">
+            <span class="project__tag">Process</span>
+            <span class="project__tag">Analytics</span>
+          </div>
+          <div class="project__cta">Read case study →</div>
+        </div>
+      </div>
+
+      <div class="project reveal" onclick="openModal('ph')">
+        <div class="project__cover"><img loading="lazy" src="ph-rollout.webp" alt="PH Rollout" /></div>
+        <div class="project-number">03.</div>
+        <div class="project__bottom">
+          <div class="project__icon">🎯</div>
+          <h3 class="project__title">PH Rollout</h3>
+          <p class="project__subtitle">Multi-warehouse PTL, Philippines</p>
+          <div class="project__tags">
+            <span class="project__tag">PTL</span>
+            <span class="project__tag">Training</span>
+          </div>
+          <div class="project__cta">Read case study →</div>
+        </div>
+      </div>
+
+      <div class="project reveal" onclick="openModal('backlog')">
+        <div class="project__cover"><img loading="lazy" src="backlog.webp" alt="The Backlog" /></div>
+        <div class="project-number">04.</div>
+        <div class="project__bottom">
+          <div class="project__icon">⚡</div>
+          <h3 class="project__title">The Backlog</h3>
+          <p class="project__subtitle">Crisis ops: 150K in 7 days</p>
+          <div class="project__tags">
+            <span class="project__tag">Last-Mile</span>
+            <span class="project__tag">Crisis Ops</span>
+          </div>
+          <div class="project__cta">Read case study →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="label reveal">Skills</div>
+    <h2 class="reveal">Toolkit.</h2>
+    <div class="skills__grid">
+      <div class="skills__col reveal">
+        <h3>Supply Chain & Ops</h3>
+        <ul class="skills__list">
+          <li class="skills__item">Warehouse Operations</li>
+          <li class="skills__item">WMS Design</li>
+          <li class="skills__item">Process Optimization</li>
+          <li class="skills__item">Inventory Management</li>
+        </ul>
+      </div>
+      <div class="skills__col reveal">
+        <h3>Implementation</h3>
+        <ul class="skills__list">
+          <li class="skills__item">BRD Documentation</li>
+          <li class="skills__item">UAT Leadership</li>
+          <li class="skills__item">Go-live Management</li>
+          <li class="skills__item">Stakeholder Alignment</li>
+        </ul>
+      </div>
+      <div class="skills__col reveal">
+        <h3>Data & Analytics</h3>
+        <ul class="skills__list">
+          <li class="skills__item">Advanced Excel</li>
+          <li class="skills__item">SQL / JSON</li>
+          <li class="skills__item">Tableau</li>
+          <li class="skills__item">KPI Dashboards</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="label reveal">By the Numbers</div>
+    <h2 class="reveal">Impact.</h2>
+    <div class="ach__grid">
+      <div class="ach__item reveal">
+        <div class="ach__num">25%</div>
+        <div class="ach__label">Productivity Gain</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">99%+</div>
+        <div class="ach__label">Order Accuracy</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">150K</div>
+        <div class="ach__label">Shipments (7 days)</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">30%</div>
+        <div class="ach__label">Faster Fulfillment</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">6+</div>
+        <div class="ach__label">Years Supply Chain</div>
+      </div>
+      <div class="ach__item reveal">
+        <div class="ach__num">P&G · ITC · Nestlé</div>
+        <div class="ach__label">Key Clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="container">
+    <div class="label reveal">Background</div>
+    <h2 class="reveal">Education & Certs.</h2>
+    <div class="cred__grid">
+      <div class="reveal">
+        <h3>Education</h3>
+        <p><strong>Mumbai University</strong></p>
+        <p>B.E. Mechanical Engineering<br />2015 — 2019</p>
+      </div>
+      <div class="reveal">
+        <h3>Certifications</h3>
+        <ul class="cred__list">
+          <li>Lean Six Sigma Foundations</li>
+          <li>SAP S/4HANA Essential Training</li>
+          <li>Project Management Foundations</li>
+          <li>Supply Chain Foundations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="container">
+    <div class="label reveal" style="text-align: center;">Dispatches</div>
+    <h2 class="reveal" style="text-align: center;">From the field.</h2>
+    <p class="writing__intro reveal">Short notes from warehouses, go-lives, and the moments implementations go sideways. Coming soon.</p>
+    <ul class="writing__list">
+      <li class="writing__item reveal">
+        <span class="writing__num">I</span>
+        <span class="writing__title">What I learned clearing 150,000 shipments in a week.</span>
+        <span class="writing__status">In draft</span>
+      </li>
+      <li class="writing__item reveal">
+        <span class="writing__num">II</span>
+        <span class="writing__title">The real cost of picker walking distance.</span>
+        <span class="writing__status">In draft</span>
+      </li>
+      <li class="writing__item reveal">
+        <span class="writing__num">III</span>
+        <span class="writing__title">Why UAT is a design problem, not a test problem.</span>
+        <span class="writing__status">Outlined</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="label reveal">Get In Touch</div>
+    <h2 class="contact__heading reveal">Let's talk.</h2>
+    <div class="contact__grid">
+      <a href="mailto:mohdizhan7@gmail.com" class="contact__link reveal">mohdizhan7@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mohmmedizhan/" class="contact__link reveal">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- MODALS -->
+<div id="modal-hul" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">HUL Samadhan</h2>
+    <p class="modal__subtitle">Warehouse automation UAT & go-live</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Automation Lead</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Jan—Jun 2023</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Scale</div>
+        <div class="modal__meta-val">3 Warehouses</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Led UAT design and execution for a full warehouse automation retrofit across HUL's top 3 distribution hubs. Automated sortation, picking, and packing workflows that had been manual for 15+ years.</p>
+      <p>Built the BRD, choreographed UAT cycles with 150+ stakeholders (operations, IT, external partners), and ran go-live across 3 sites in parallel without a single day of downtime.</p>
+      <p><strong>Outcome:</strong> 40% throughput increase. Captured $2.3M in annual savings. Zero operational regressions post-launch.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-25" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">The 25% Project</h2>
+    <p class="modal__subtitle">Picking workflow redesign</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Process Design Lead</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">May—Aug 2022</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Venue</div>
+        <div class="modal__meta-val">Edgistify · Delhi Hub</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Spent 6 weeks on the warehouse floor studying picker motion, data entry bottlenecks, and batching logic. Identified that 40% of pick time was wasted on unoptimized batch assignments.</p>
+      <p>Redesigned batching algorithm to group picks by zone proximity and aisle sequences. Retrained pickers on new layouts. Reduced average pick cycle time from 8 min to 6 min per 50-unit batch.</p>
+      <p><strong>Outcome:</strong> 25% productivity gain. 160 additional picks per picker per shift. ROI in 90 days.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-ph" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">PH Rollout</h2>
+    <p class="modal__subtitle">Multi-warehouse PTL implementation</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Implementation PM</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Mar—Dec 2021</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Scale</div>
+        <div class="modal__meta-val">8 Warehouses</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Managed end-to-end roll out of Pick-to-Light (PTL) systems across 8 warehouses serving a top pharmaceutical manufacturer. Each site ran independently; we needed synchronized go-live without spillover impact.</p>
+      <p>Built rollout playbooks, trained 200+ operators on hardware and workflows, and ran staggered pilots with live data validation before full deployment to each site.</p>
+      <p><strong>Outcome:</strong> 99.2% pick accuracy. Zero missed shipments. 18% faster order fulfillment across network.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-backlog" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">The Backlog</h2>
+    <p class="modal__subtitle">Crisis operations: 150K shipments in 7 days</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Role</div>
+        <div class="modal__meta-val">Branch Manager</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">April 2020</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Scale</div>
+        <div class="modal__meta-val">150,000 shipments</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>During the first COVID wave, Mumbai's last-mile collapsed. 150,000 shipments stacked up at my branch. I built an alternative last-mile network in 48 hours and cleared the entire backlog in seven days.</p>
+      <p>Signed local partners with idle two-wheelers, negotiated per-shipment rates, and stood up routing sheets in Google Sheets. Maintained 95–98% on-time delivery and less than 0.5% damage rate throughout the operation.</p>
+      <p><strong>Outcome:</strong> No customer escalations. Zero service failures. Became a case study in crisis operations across the network.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE MODALS -->
+<div id="modal-stackbox" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Assistant Project Manager</h2>
+    <p class="modal__subtitle">StackBOX</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Sep 2023 — Present</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Bengaluru</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">WMS · Supply Chain Tech</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Leading product and solution design for StackBox's warehouse management platform. Currently architecting end-to-end solutions for enterprises migrating from legacy WMS to cloud-based systems.</p>
+      <p>Responsibilities include requirements gathering with C-suite stakeholders, designing implementation playbooks for multi-warehouse deployments, and owning success metrics for go-lives.</p>
+      <p><strong>Key wins:</strong> Shipped 3 enterprise solutions. Reduced average implementation timeline by 20%. Built playbook now used across all new customer onboarding.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-edgistify" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Manager, Solution Design</h2>
+    <p class="modal__subtitle">Edgistify</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Aug 2022 — Sep 2023</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Delhi NCR</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">3PL · Logistics Tech</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Designed and delivered supply chain solutions for 3PL and e-commerce clients. Led a team of 4 solution architects through client discovery, BRD documentation, and UAT leadership.</p>
+      <p>Managed implementations across 12+ warehouses, coordinated between product, operations, and client stakeholders, and owned the success of 5 concurrent go-lives.</p>
+      <p><strong>Key wins:</strong> 25% average productivity uplift across implementations. Zero critical defects in production. Built repeatable playbook that reduced implementation cost by 18%.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-mindseed" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Manager, Procurement & Supply Chain</h2>
+    <p class="modal__subtitle">Mindseed Education</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Dec 2021 — Aug 2022</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Bengaluru</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">Education Tech · Operations</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Built supply chain operations from the ground up for an edtech startup scaling to 50+ cities. Designed procurement workflows, inventory management systems, and logistics network.</p>
+      <p>Established vendor relationships, created SOP documentation, and implemented Zoho Inventory to track 8,000+ SKUs across distribution hubs.</p>
+      <p><strong>Key wins:</strong> Reduced cost per shipment by 22%. Achieved 98% on-time delivery to 50+ cities. Enabled launch in 12 new markets in 6 months.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-dtdc" class="modal">
+  <div class="modal__inner">
+    <h2 class="modal__title">Branch Manager</h2>
+    <p class="modal__subtitle">DTDC Express</p>
+    <div class="modal__meta">
+      <div>
+        <div class="modal__meta-label">Timeline</div>
+        <div class="modal__meta-val">Jan 2020 — Dec 2021</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Location</div>
+        <div class="modal__meta-val">Mumbai</div>
+      </div>
+      <div>
+        <div class="modal__meta-label">Focus</div>
+        <div class="modal__meta-val">Last-mile · Crisis Operations</div>
+      </div>
+    </div>
+    <div class="modal__body">
+      <p>Managed branch operations for India's largest express courier network. Oversaw 150+ staff, managed daily shipment volumes of 10K+, and owned P&L for a ₹4.5Cr annual operation.</p>
+      <p>Implemented process improvements that reduced handling time by 18%, negotiated vendor contracts, and built crisis response protocols for operational disruptions.</p>
+      <p><strong>Key wins:</strong> Cleared 150K shipment backlog in 7 days during COVID-19. Maintained 98%+ on-time delivery. Built alternative last-mile network that became a case study across DTDC zones.</p>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+  /* ── Loading screen ── */
+  ;(function() {
+    var fill  = document.getElementById('loaderFill');
+    var label = document.getElementById('loaderLabel');
+    var loader = document.getElementById('site-loader');
+    var done = false;
+
+    function setP(p, text) {
+      if (fill)  fill.style.width = p + '%';
+      if (label) label.textContent = text;
+    }
+
+    function show() {
+      if (done) return; done = true;
+      setP(100, 'Ready');
+      document.body.classList.remove('loading');
+      if (loader) { loader.classList.add('ready'); setTimeout(function(){ if(loader.parentNode) loader.remove(); }, 550); }
+    }
+
+    setTimeout(show, 4000); // hard fallback
+
+    setP(20, 'Loading');
+    var dom = new Promise(function(r){ if(document.readyState!=='loading'){setP(40,'Parsing');r();}else{document.addEventListener('DOMContentLoaded',function(){setP(40,'Parsing');r();},{once:true});} });
+    var fonts = document.fonts.ready.then(function(){ setP(65,'Fonts'); });
+    var win = new Promise(function(r){ if(document.readyState==='complete'){setP(85,'Assets');r();}else{window.addEventListener('load',function(){setP(85,'Assets');r();},{once:true});} });
+    var js = new Promise(function(r){ var n=0; (function c(){ n++; if(typeof openModal==='function'){setP(95,'Ready');r();}else if(n<80){setTimeout(c,50);}else{r();} })(); });
+
+    Promise.all([dom, fonts, win, js]).then(show).catch(show);
+  })();
+
+  /* Theme: light only */
+
+  // ── UNIFIED Scroll reveal observer (single source of truth) ──
+  (function() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal, .exp__item, .project, .stat, .bar__item, .ach__item, .cred').forEach(el => {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    
+    let pending = new Set();
+    let rafId = null;
+    
+    const processPending = () => {
+      pending.forEach(el => el.classList.add('is-visible'));
+      pending.clear();
+      rafId = null;
+    };
+    
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !e.target.classList.contains('is-visible')) {
+          pending.add(e.target);
+        }
+      });
+      
+      // Batch class additions to avoid layout thrashing
+      if (!rafId) {
+        rafId = requestAnimationFrame(processPending);
+      }
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    
+    document.querySelectorAll('.reveal, .exp__item, .project, .stat, .bar__item, .ach__item, .cred').forEach(el => {
+      obs.observe(el);
+    });
+  })();
+
+  
+
+  /* ── Live IST clock ── */
+  function updateClock() {
+    const now = new Date();
+    const ist = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: true
+    }).format(now).toUpperCase();
+    const el = document.getElementById('heroClock');
+    if (el) el.textContent = ist;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  /* ── Mouse-following blob — transform only (GPU) ── */
+  const blob = document.getElementById('heroBlob');
+  const blobSize = 500;
+  let bx = window.innerWidth / 2 - blobSize / 2;
+  let by = window.innerHeight / 2 - blobSize / 2;
+  let tx = bx, ty = by;
+
+  document.addEventListener('mousemove', (e) => {
+    tx = e.clientX - blobSize / 2;
+    ty = e.clientY - blobSize / 2;
+  }, { passive: true });
+
+  let blobRaf = null;
+  let blobActive = false;
+
+  function animateBlob() {
+    if (!blobActive) return;
+    bx += (tx - bx) * 0.07;
+    by += (ty - by) * 0.07;
+    if (blob) blob.style.transform = `translate(${bx}px,${by}px)`;
+    blobRaf = requestAnimationFrame(animateBlob);
+  }
+
+  // Pause blob rAF when hero scrolls out of view
+  const heroSection = document.getElementById('home');
+  if (heroSection) {
+    new IntersectionObserver((entries) => {
+      blobActive = entries[0].isIntersecting;
+      if (blobActive && !blobRaf) animateBlob();
+    }, { threshold: 0 }).observe(heroSection);
+  }
+
+  // Blob animation starts when user scrolls to hero
+
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // PERFORMANCE WARM-UP: pre-compile animations to avoid jank on first interactions
+  // ═══════════════════════════════════════════════════════════════════════════════
+  (function warmUpAnimations() {
+    try {
+      // Force layout recalculation on a few elements to pre-compile animations
+      const testEl = document.createElement('div');
+      testEl.style.cssText = 'opacity: 0; transform: translateY(18px); position: absolute; pointer-events: none;';
+      document.body.appendChild(testEl);
+      
+      // Trigger repaint
+      void testEl.offsetHeight;
+      
+      // Apply animation
+      testEl.style.transition = 'opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)';
+      testEl.style.opacity = '1';
+      testEl.style.transform = 'translateY(0)';
+      
+      // Trigger repaint again
+      void testEl.offsetHeight;
+      
+      // Clean up
+      setTimeout(() => testEl.remove(), 500);
+    } catch(e) {
+      console.warn('Animation warmup error:', e);
+    }
+  })();
+
+  /* ── Hamburger menu ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+  });
+
+  function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  // Close mobile menu when clicking outside
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+      closeMobileMenu();
+    }
+  });
+
+  // Tweaks panel
+
+
+
+
+
+
+  // Modal functions
+  function openModal(id) {
+    const modal = document.getElementById(`modal-${id}`);
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal(id) {
+    const modal = document.getElementById(`modal-${id}`);
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // Close modal on background click
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        const id = modal.id.replace('modal-', '');
+        closeModal(id);
+      }
+    });
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal.active').forEach(modal => {
+        const id = modal.id.replace('modal-', '');
+        closeModal(id);
+      });
+    }
+  });
+
+  // Scroll progress bar (throttled)
+  const scrollBar = document.querySelector('.scroll-bar');
+  let ticking = false;
+  
+  const updateScrollBar = () => {
+    const h = document.documentElement;
+    const progress = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    scrollBar.style.transform = `scaleX(${progress})`;
+    ticking = false;
+  };
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateScrollBar);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // OPTIMIZED COUNTER & INTERACTION HANDLERS (consolidated & bulletproofed)
+  // ═══════════════════════════════════════════════════════════════════════════════
+
+  // Counter animation with performance optimization
+  function animateCounter(el, target, suffix, duration) {
+    try {
+      if (!el || el.dataset.animated) return;
+      el.dataset.animated = 'true';
+      
+      const start = performance.now();
+      const update = (now) => {
+        try {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(update);
+        } catch(e) {
+          console.warn('Counter update error:', e);
+        }
+      };
+      requestAnimationFrame(update);
+    } catch(e) {
+      console.warn('Counter animation error:', e);
+    }
+  }
+
+  // Single observer for counters
+  try {
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          try {
+            if (entry.isIntersecting && !entry.target.dataset.counterStarted) {
+              entry.target.dataset.counterStarted = 'true';
+              const target = parseInt(entry.target.dataset.count, 10);
+              const suffix = entry.target.dataset.suffix || '';
+              const numEl = entry.target.querySelector('.stat__num');
+              if (!isNaN(target) && numEl) {
+                animateCounter(numEl, target, suffix, 1600);
+              }
+            }
+          } catch(e) {
+            console.warn('Counter observer error:', e);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      document.querySelectorAll('.stat[data-count]').forEach((stat) => {
+        try { counterObserver.observe(stat); } catch(e) {}
+      });
+    }
+  } catch(e) {
+    console.error('Counter observer init error:', e);
+  }
+
+  // Work item expand/collapse with robust error handling
+  try {
+    document.querySelectorAll('.exp__item').forEach((el) => {
+      try {
+        let collapseTimer;
+        
+        el.addEventListener('mouseenter', () => {
+          try {
+            clearTimeout(collapseTimer);
+            el.classList.add('is-expanded');
+          } catch(e) {
+            console.warn('Work mouseenter error:', e);
+          }
+        });
+        
+        el.addEventListener('mouseleave', () => {
+          try {
+            collapseTimer = setTimeout(() => {
+              try { el.classList.remove('is-expanded'); } catch(e) {}
+            }, 100);
+          } catch(e) {
+            console.warn('Work mouseleave error:', e);
+          }
+        });
+
+        // Mobile/touch support
+        el.addEventListener('click', (e) => {
+          try {
+            if (e.target.closest('.exp__item')) {
+              el.classList.toggle('is-expanded');
+            }
+          } catch(e) {
+            console.warn('Work click error:', e);
+          }
+        });
+      } catch(e) {
+        console.warn('Work item setup error:', e);
+      }
+    });
+  } catch(e) {
+    console.error('Work items init error:', e);
+  }
+
+  // Smooth scroll for navigation links
+  try {
+    const scrollLinks = document.querySelectorAll('.nav__links a, .mobile-menu a');
+    scrollLinks.forEach((link) => {
+      try {
+        link.addEventListener('click', (e) => {
+          try {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+              e.preventDefault();
+              const target = document.querySelector(href);
+              if (target && target.scrollIntoView) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                
+                // Close mobile menu if open
+                const hamburger = document.getElementById('hamburger');
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                  try {
+                    if (hamburger) hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                  } catch(e) {}
+                }
+              }
+            }
+          } catch(e) {
+            console.warn('Smooth scroll error:', e);
+          }
+        });
+      } catch(e) {
+        console.warn('Scroll link setup error:', e);
+      }
+    });
+  } catch(e) {
+    console.error('Smooth scroll init error:', e);
+  }
+
+
+
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // GLOBAL ERROR HANDLING
+  // ═══════════════════════════════════════════════════════════════════════════════
+  window.addEventListener('error', (event) => {
+    console.error('Global JavaScript error:', event.error);
+  });
+
+  window.addEventListener('unhandledrejection', (event) => {
+    console.error('Unhandled promise rejection:', event.reason);
+  });
+
+</script>
+
+</body>
+</html>

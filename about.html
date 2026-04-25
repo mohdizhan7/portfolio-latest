@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Mohammed Izhan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --fg-1: #1a1a1a;
+      --fg-2: #666;
+      --fg-3: #999;
+      --accent: #1a1a1a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg-1);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--fg-1);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    nav a:hover {
+      color: var(--fg-2);
+    }
+
+    .nav__logo {
+      font-weight: 700;
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 40px;
+    }
+
+    /* Hero intro section */
+    .hero-intro {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .hero-intro h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-intro__tagline {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--fg-2);
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    .hero-intro__body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .hero-intro__body p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--fg-2);
+      max-width: 700px;
+    }
+
+    .hero-intro__cta {
+      display: flex;
+      gap: 40px;
+      margin-top: 32px;
+    }
+
+    .hero-intro__cta a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--fg-1);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .hero-intro__cta a:hover {
+      color: var(--fg-2);
+    }
+
+    /* Main sections grid */
+    .about-sections {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .about-section {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .about-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--fg-1);
+    }
+
+    .section-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .section-item__title {
+      font-weight: 600;
+      color: var(--fg-1);
+      font-size: 15px;
+    }
+
+    .section-item__meta {
+      font-size: 13px;
+      color: var(--fg-3);
+      line-height: 1.6;
+    }
+
+    /* Experience highlights */
+    .highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 24px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 8px;
+    }
+
+    .highlight-stat {
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .highlight-stat__num {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .highlight-stat__label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-top: 8px;
+    }
+
+    .highlight-bar {
+      flex: 1;
+      height: 3px;
+      background: var(--fg-3);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .highlight-bar::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: var(--fg-1);
+      border-radius: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 20px 24px;
+      }
+
+      .hero-intro {
+        padding: 60px 24px;
+      }
+
+      .about-sections {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        padding: 60px 24px;
+      }
+
+      .nav__links {
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav__logo">Mohammed Izhan</a>
+    <div class="nav__links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+  <!-- Hero intro -->
+  <div class="hero-intro">
+    <h1>Hi, I'm Mohammed Izhan.</h1>
+    <p class="hero-intro__tagline">A supply chain systems designer passionate about building operations that scale — simplifying complexity into elegant solutions.</p>
+    
+    <div class="hero-intro__body">
+      <p><strong>Currently</strong> leading implementations at StackBox. Previously built supply chain solutions at Edgistify, Mindseed, and DTDC — scaling warehouses, designing processes, and coordinating go-lives for some of India's largest enterprises.</p>
+      
+      <p>Based in Mumbai. 6+ years designing systems that bridge operations and technology — WMS implementations, warehouse layouts, TMS integrations, and the human workflows that make them work.</p>
+      
+      <p>My journey started in operations, evolved through startups, and solidified in enterprise. I'm most energized by taking messy, complicated processes and transforming them into intuitive, scalable systems.</p>
+    </div>
+
+    <div class="hero-intro__cta">
+      <a href="mailto:hello@mohammedizhan.com">→ Email</a>
+      <a href="#">→ Resume</a>
+    </div>
+  </div>
+
+  <!-- Experience & Skills sections -->
+  <div class="about-sections">
+    <!-- Left: Experience -->
+    <div class="about-section">
+      <h3>Experience</h3>
+      
+      <div class="section-item">
+        <div class="section-item__title">StackBox</div>
+        <div class="section-item__meta">
+          Assistant Project Manager<br>
+          Sep 2023 — Present (2yr 7mo)
+        </div>
+      </div>
+
+      <div class="section-item">
+        <div class="section-item__title">Edgistify</div>
+        <div class="section-item__meta">
+          Supply Chain Operations<br>
+          2021 — 2023 (2yr)
+        </div>
+      </div>
+
+      <div class="section-item">
+        <div class="section-item__title">Mindseed Education</div>
+        <div class="section-item__meta">
+          Operations & Logistics<br>
+          2019 — 2021 (1yr 8mo)
+        </div>
+      </div>
+
+      <div class="section-item">
+        <div class="section-item__title">DTDC Express</div>
+        <div class="section-item__meta">
+          Branch Manager<br>
+          2018 — 2019 (1yr)
+        </div>
+      </div>
+
+      <div class="highlights">
+        <div class="highlight-item">
+          <div class="highlight-stat">
+            <div class="highlight-stat__num">6+</div>
+            <div class="highlight-stat__label">Years</div>
+          </div>
+          <div class="highlight-bar" style="--width: 60%;"></div>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-stat">
+            <div class="highlight-stat__num">50+</div>
+            <div class="highlight-stat__label">Sites</div>
+          </div>
+          <div class="highlight-bar" style="--width: 83%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Skills & Education -->
+    <div class="about-section">
+      <h3>Skills</h3>
+      
+      <div class="section-item">
+        <div class="section-item__meta">
+          • WMS & TMS System Design<br>
+          • Warehouse Operations & Process Optimization<br>
+          • Enterprise Implementation Leadership<br>
+          • Supply Chain Network Design<br>
+          • Team Leadership & Mentorship<br>
+          • Business Process Redesign
+        </div>
+      </div>
+
+      <h3 style="margin-top: 40px;">Education</h3>
+
+      <div class="section-item">
+        <div class="section-item__title">Bachelor of Technology</div>
+        <div class="section-item__meta">
+          Industrial Engineering<br>
+          2016 — 2018
+        </div>
+      </div>
+
+      <h3 style="margin-top: 40px;">Currently</h3>
+
+      <div class="section-item">
+        <div class="section-item__meta">
+          Leading PTL rollout across 50+ sites in the Philippines. Architecting warehouse layouts, managing hardware procurement, and coordinating go-live for one of South Asia's largest FMCG companies.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

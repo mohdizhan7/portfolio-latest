@@ -1,0 +1,26 @@
+{
+  "name": "mohammed-izhan-portfolio",
+  "version": "1.0.0",
+  "description": "Mohammed Izhan Shaikh - Supply Chain & Project Manager Portfolio",
+  "author": "Mohammed Izhan Shaikh",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "npx http-server -p 3000 -c-1",
+    "build": "echo 'No build step needed for static site'",
+    "start": "npx http-server -p 3000 -c-1"
+  },
+  "keywords": [
+    "portfolio",
+    "supply-chain",
+    "project-management",
+    "operations"
+  ],
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.2.8",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
