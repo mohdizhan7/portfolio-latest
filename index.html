@@ -1436,11 +1436,8 @@
 </div>
 
 <!-- TWEAKS BUTTON -->
-<button class="tweaks-toggle" id="tweaksBtn" title="Toggle tweaks">⚙</button>
 
 <!-- TWEAKS PANEL -->
-<div class="tweaks-panel" id="tweaksPanel">
-  <button class="tweaks-close" onclick="closeTweaks()">✕</button>
   <h3>Tweaks</h3>
 
   <div class="tweaks-group">
@@ -2161,47 +2158,11 @@
   });
 
   // Tweaks panel
-  const tweaksBtn = document.getElementById('tweaksBtn');
-  const tweaksPanel = document.getElementById('tweaksPanel');
 
-  tweaksBtn.addEventListener('click', () => {
-    tweaksPanel.classList.toggle('active');
-    tweaksBtn.classList.toggle('hide');
-  });
 
-  function closeTweaks() {
-    tweaksPanel.classList.remove('active');
-    tweaksBtn.classList.remove('hide');
-  }
 
-  function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.querySelectorAll('.tweaks-group:nth-child(1) .tweaks-opt').forEach(b => b.classList.remove('active'));
-    const buttons = document.querySelectorAll('.tweaks-group:nth-child(1) .tweaks-opt');
-    if (theme === 'light') {
-      buttons[0].classList.add('active');
-    } else {
-      buttons[1].classList.add('active');
-    }
-    localStorage.setItem('theme', theme);
-  }
 
-  function setAccent(color) {
-    const root = document.documentElement;
-    const colors = { white: '#fbfbfb', gold: '#d4af37', cyan: '#00d4ff' };
-    root.style.setProperty('--accent-color', colors[color]);
-    document.querySelectorAll('.tweaks-group:nth-child(2) .tweaks-opt').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    localStorage.setItem('accent', color);
-  }
 
-  function setAnimSpeed(speed) {
-    const speeds = { slow: '1.5s', normal: '0.8s', fast: '0.4s' };
-    document.documentElement.style.setProperty('--anim-duration', speeds[speed]);
-    document.querySelectorAll('.tweaks-group:nth-child(3) .tweaks-opt').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    localStorage.setItem('animSpeed', speed);
-  }
 
   // Modal functions
   function openModal(id) {
