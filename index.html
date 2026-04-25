@@ -86,10 +86,9 @@
   .container { max-width: 1200px; width: 100%; margin: 0 auto; }
   .container--narrow { max-width: 960px; }
 
-  /* GPU layer promotion + render skipping for off-screen sections */
-  section { contain: layout style; }
-  .reveal { backface-visibility: hidden; }
-  .project, .exp__item { backface-visibility: hidden; }
+  /* GPU: promote animated elements to own compositor layer */
+  .reveal { will-change: opacity, transform; }
+  .project, .exp__item { will-change: transform; }
 
   /* Smooth theme switching — only active during toggle */
   .theme-transitioning,
@@ -698,7 +697,6 @@
     will-change: width;
     transition: width 0.38s cubic-bezier(0.4,0,0.2,1),
                 margin 0.38s cubic-bezier(0.4,0,0.2,1);
-    contain: layout;
   }
 
   .exp__item.is-expanded .exp__image-wrap {
