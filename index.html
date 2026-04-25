@@ -49,7 +49,6 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     font-weight: 400;
-    transition: background 0.4s, color 0.4s;
   }
 
   a { color: var(--fg); text-decoration: none; }
@@ -89,7 +88,7 @@
     align-items: center;
     background: transparent;
     border-bottom: 1px solid var(--line);
-    transition: background 0.4s, border-color 0.4s;
+    transition: none;
   }
 
   .nav__left {
@@ -215,7 +214,7 @@
     justify-content: center;
     gap: 48px;
     padding: 120px 48px;
-    transition: background 0.4s;
+    transition: none;
   }
 
   .mobile-menu.active { display: flex; }
@@ -442,7 +441,7 @@
     position: relative;
     overflow: hidden;
     background: var(--bg);
-    transition: background 0.4s;
+    transition: none;
   }
 
   /* Grain texture overlay */
@@ -2059,8 +2058,19 @@
   const themeToggle = document.getElementById('themeToggle');
   const root = document.documentElement;
 
-  function applyTheme(theme) {
-    root.setAttribute('data-theme', theme);
+  function applyTheme(theme, animate) {
+    if (!animate) {
+      // Instant switch — block all transitions briefly
+      const style = document.createElement('style');
+      style.textContent = '*, *::before, *::after { transition: none !important; }';
+      document.head.appendChild(style);
+      root.setAttribute('data-theme', theme);
+      // Force repaint then remove the block
+      window.getComputedStyle(document.body).background;
+      requestAnimationFrame(() => requestAnimationFrame(() => style.remove()));
+    } else {
+      root.setAttribute('data-theme', theme);
+    }
     themeToggle.textContent = theme === 'light' ? '☾' : '☀';
     try { localStorage.setItem('iz_theme', theme); } catch(e) {}
   }
@@ -2070,10 +2080,10 @@
     try { return localStorage.getItem('iz_theme'); } catch(e) { return null; }
   })();
   const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(savedTheme || (systemDark ? 'dark' : 'light'));
+  applyTheme(savedTheme || (systemDark ? 'dark' : 'light'), false);
 
   themeToggle.addEventListener('click', () => {
-    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', false);
   });
 
   /* ── Live IST clock ── */
