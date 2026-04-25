@@ -1481,6 +1481,15 @@
 
 </style>
 <script>
+  // Set theme BEFORE first paint — prevents loader flash
+  (function() {
+    try {
+      var saved = localStorage.getItem('iz_theme');
+      var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved || system);
+    } catch(e) {}
+  })();
+
   // Load DM Sans dynamically — non-blocking
   (function() {
     var link = document.createElement('link');
