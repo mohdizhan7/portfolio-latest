@@ -8,9 +8,14 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <!-- Vercel Speed Insights -->
 <script defer src="/_vercel/speed-insights/script.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet" />
+<link rel="preload" href="fonts/dm-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fonts/dm-sans-700.woff2" as="font" type="font/woff2" crossorigin />
+<style>
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-800.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+</style>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1405,11 +1410,11 @@
   <div class="nav__actions">
     <!-- CV icon -->
     <a href="resume/Resume_Izhan-2%20(1).pdf" target="_blank" rel="noreferrer" class="nav__icon" title="View CV">
-      <img src="icons/CV%20Icon.png" alt="CV" />
+      <img loading="lazy" src="icons/CV%20Icon.webp" alt="CV" />
     </a>
     <!-- LinkedIn icon -->
     <a href="https://www.linkedin.com/in/mohmmedizhan/" target="_blank" rel="noreferrer" class="nav__icon" title="LinkedIn">
-      <img src="icons/LinkedIn%20Icon.png" alt="LinkedIn" />
+      <img loading="lazy" src="icons/LinkedIn%20Icon.webp" alt="LinkedIn" />
     </a>
     <button class="theme-toggle" id="themeToggle" title="Toggle theme">☀</button>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -1532,7 +1537,7 @@
     <div class="exp__list">
 
       <div class="exp__item" onclick="openModal('stackbox')">
-        <div class="exp__image-wrap"><div class="exp__image"><img src="LOGOS/SBX%20Logo_PNG.png" alt="StackBOX" /></div></div>
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="LOGOS/SBX%20Logo_PNG.webp" alt="StackBOX" /></div></div>
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Assistant Project Manager</h3>
@@ -1554,7 +1559,7 @@
       </div>
 
       <div class="exp__item" onclick="openModal('edgistify')">
-        <div class="exp__image-wrap"><div class="exp__image"><img src="LOGOS/Edgistify%20Logo.jpeg" alt="Edgistify" /></div></div>
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="LOGOS/Edgistify%20Logo.webp" alt="Edgistify" /></div></div>
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Manager, Solution Design</h3>
@@ -1576,7 +1581,7 @@
       </div>
 
       <div class="exp__item" onclick="openModal('mindseed')">
-        <div class="exp__image-wrap"><div class="exp__image"><img src="LOGOS/Mindseed%20Education%20Overview.jpeg" alt="Mindseed Education" /></div></div>
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="LOGOS/Mindseed%20Education%20Overview.webp" alt="Mindseed Education" /></div></div>
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Manager, Procurement & Supply Chain</h3>
@@ -1598,7 +1603,7 @@
       </div>
 
       <div class="exp__item" onclick="openModal('dtdc')">
-        <div class="exp__image-wrap"><div class="exp__image"><img src="LOGOS/DTDC%20Express%20Limited%20Logo.jpeg" alt="DTDC Express" /></div></div>
+        <div class="exp__image-wrap"><div class="exp__image"><img loading="lazy" src="LOGOS/DTDC%20Express%20Limited%20Logo.webp" alt="DTDC Express" /></div></div>
         <div class="exp__content">
           <div class="exp__header">
             <h3 class="exp__title">Branch Manager</h3>
@@ -1630,7 +1635,7 @@
     <h2 class="reveal">Case studies.</h2>
     <div class="projects__grid">
       <div class="project reveal" onclick="openModal('hul')">
-        <div class="project__cover"><img src="project-covers/hul-samadhan.png" alt="HUL Samadhan" /></div>
+        <div class="project__cover"><img loading="lazy" src="project-covers/hul-samadhan.webp" alt="HUL Samadhan" /></div>
         <div class="project-number">01.</div>
         <div class="project__bottom">
           <div class="project__icon">📦</div>
@@ -1646,7 +1651,7 @@
       </div>
 
       <div class="project reveal" onclick="openModal('25')">
-        <div class="project__cover"><img src="project-covers/25-percent.png" alt="The 25% Project" /></div>
+        <div class="project__cover"><img loading="lazy" src="project-covers/25-percent.webp" alt="The 25% Project" /></div>
         <div class="project-number">02.</div>
         <div class="project__bottom">
           <div class="project__icon">📈</div>
@@ -1661,7 +1666,7 @@
       </div>
 
       <div class="project reveal" onclick="openModal('ph')">
-        <div class="project__cover"><img src="project-covers/ph-rollout.png" alt="PH Rollout" /></div>
+        <div class="project__cover"><img loading="lazy" src="project-covers/ph-rollout.webp" alt="PH Rollout" /></div>
         <div class="project-number">03.</div>
         <div class="project__bottom">
           <div class="project__icon">🎯</div>
@@ -1676,7 +1681,7 @@
       </div>
 
       <div class="project reveal" onclick="openModal('backlog')">
-        <div class="project__cover"><img src="project-covers/backlog.png" alt="The Backlog" /></div>
+        <div class="project__cover"><img loading="lazy" src="project-covers/backlog.webp" alt="The Backlog" /></div>
         <div class="project-number">04.</div>
         <div class="project__bottom">
           <div class="project__icon">⚡</div>
@@ -2097,11 +2102,24 @@
     ty = e.clientY - blobSize / 2;
   }, { passive: true });
 
+  let blobRaf = null;
+  let blobActive = true;
+
   function animateBlob() {
+    if (!blobActive) return;
     bx += (tx - bx) * 0.07;
     by += (ty - by) * 0.07;
     if (blob) blob.style.transform = `translate(${bx}px,${by}px)`;
-    requestAnimationFrame(animateBlob);
+    blobRaf = requestAnimationFrame(animateBlob);
+  }
+
+  // Pause blob rAF when hero scrolls out of view
+  const heroSection = document.getElementById('home');
+  if (heroSection) {
+    new IntersectionObserver((entries) => {
+      blobActive = entries[0].isIntersecting;
+      if (blobActive && !blobRaf) animateBlob();
+    }, { threshold: 0 }).observe(heroSection);
   }
 
   animateBlob();
