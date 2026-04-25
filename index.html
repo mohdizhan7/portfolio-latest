@@ -4,6 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mohammed Izhan Shaikh — Project Manager</title>
+<!-- Vercel Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
+<!-- Vercel Speed Insights -->
+<script defer src="/_vercel/speed-insights/script.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet" />
@@ -366,7 +370,7 @@
     overflow: hidden;
     background: var(--hero-bg);
     transition: none;
-    animation: heroBgIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+    /* no fade-in — instant bg */
   }
 
   /* Mouse-tracking layer — subtle highlight over static gradient */
@@ -401,15 +405,15 @@
   .hero__name,
   .hero__rows .hero__row {
     opacity: 0;
-    animation: preFadeIn 0.5s ease forwards;
+    animation: preFadeIn 0.3s ease forwards;
   }
 
-  .hero__topbar-left        { animation-delay: 0.12s; }
-  .hero__topbar-right       { animation-delay: 0.13s; }
-  .hero__name               { animation-delay: 0.155s; }
-  .hero__rows .hero__row:nth-child(1) { animation-delay: 0.165s; }
-  .hero__rows .hero__row:nth-child(2) { animation-delay: 0.175s; }
-  .hero__rows .hero__row:nth-child(3) { animation-delay: 0.186s; }
+  .hero__topbar-left        { animation-delay: 0s; }
+  .hero__topbar-right       { animation-delay: 0s; }
+  .hero__name               { animation-delay: 0.05s; }
+  .hero__rows .hero__row:nth-child(1) { animation-delay: 0.1s; }
+  .hero__rows .hero__row:nth-child(2) { animation-delay: 0.15s; }
+  .hero__rows .hero__row:nth-child(3) { animation-delay: 0.2s; }
 
   /* Topbar */
   .hero__topbar {
