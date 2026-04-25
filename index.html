@@ -1398,9 +1398,90 @@
     .project__title { font-size: 16px; }
   }
 
+
+  /* ─── Loading screen ─── */
+  #site-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1),
+                visibility 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  [data-theme="light"] #site-loader { background: #e8e8e4; }
+
+  #site-loader.ready {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loader__logo {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fbfbfb;
+  }
+
+  [data-theme="light"] .loader__logo { color: #0a0a0a; }
+
+  .loader__track {
+    width: 48px;
+    height: 1px;
+    background: rgba(251,251,251,0.15);
+    border-radius: 1px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  [data-theme="light"] .loader__track { background: rgba(10,10,10,0.12); }
+
+  .loader__progress {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%;
+    background: #fbfbfb;
+    border-radius: 1px;
+    transition: width 0.3s ease;
+  }
+
+  [data-theme="light"] .loader__progress { background: #0a0a0a; }
+
+  .loader__status {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(251,251,251,0.35);
+  }
+
+  [data-theme="light"] .loader__status { color: rgba(10,10,10,0.3); }
+
+  /* Hide main content while loading */
+  body.loading nav,
+  body.loading #home,
+  body.loading #about,
+  body.loading #work,
+  body.loading #projects,
+  body.loading #skills,
+  body.loading #achievements,
+  body.loading #credentials,
+  body.loading #writing,
+  body.loading #contact {
+    visibility: hidden;
+  }
+
 </style>
 <script>
-  // Load DM Sans dynamically — non-blocking, no render delay
+  // Load DM Sans dynamically — non-blocking
   (function() {
     var link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -1409,8 +1490,15 @@
   })();
 </script>
 </head>
-<body>
+<body class="loading">
 
+<div id="site-loader">
+  <div class="loader__logo">IZ</div>
+  <div class="loader__track">
+    <div class="loader__progress" id="loaderProgress"></div>
+  </div>
+  <div class="loader__status" id="loaderStatus">Loading</div>
+</div>
 
 <div class="scroll-bar"></div>
 
@@ -2059,6 +2147,72 @@
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+  /* ─── Loading screen — readiness checks ─── */
+  (function() {
+    const loader   = document.getElementById('site-loader');
+    const progress = document.getElementById('loaderProgress');
+    const status   = document.getElementById('loaderStatus');
+    let   pct      = 0;
+    let   shown    = false;
+
+    function setProgress(p, label) {
+      pct = Math.max(pct, p);
+      if (progress) progress.style.width = pct + '%';
+      if (status && label) status.textContent = label;
+    }
+
+    function showSite() {
+      if (shown) return;
+      shown = true;
+      setProgress(100, 'Ready');
+      document.body.classList.remove('loading');
+      if (loader) {
+        loader.classList.add('ready');
+        setTimeout(() => { if (loader.parentNode) loader.remove(); }, 650);
+      }
+    }
+
+    // Safety net — never block for more than 4 seconds
+    const fallback = setTimeout(showSite, 4000);
+
+    setProgress(10, 'Loading');
+
+    // Check 1: DOM parsed
+    const domReady = new Promise(resolve => {
+      if (document.readyState !== 'loading') { setProgress(30, 'Parsing'); resolve(); }
+      else document.addEventListener('DOMContentLoaded', () => { setProgress(30, 'Parsing'); resolve(); }, { once: true });
+    });
+
+    // Check 2: Fonts
+    const fontsReady = document.fonts.ready.then(() => setProgress(60, 'Fonts'));
+
+    // Check 3: Window fully loaded (images, scripts)
+    const windowReady = new Promise(resolve => {
+      if (document.readyState === 'complete') { setProgress(80, 'Assets'); resolve(); }
+      else window.addEventListener('load', () => { setProgress(80, 'Assets'); resolve(); }, { once: true });
+    });
+
+    // Check 4: Core JS functions initialised
+    const jsReady = new Promise(resolve => {
+      let attempts = 0;
+      function check() {
+        attempts++;
+        if (typeof openModal === 'function' && typeof applyTheme === 'function') {
+          setProgress(95, 'Ready'); resolve();
+        } else if (attempts < 60) {
+          setTimeout(check, 50);
+        } else {
+          resolve(); // give up after 3s and show anyway
+        }
+      }
+      check();
+    });
+
+    Promise.all([domReady, fontsReady, windowReady, jsReady])
+      .then(() => { clearTimeout(fallback); showSite(); })
+      .catch(() => { clearTimeout(fallback); showSite(); });
+  })();
 
   /* ── Theme toggle ── */
   const themeToggle = document.getElementById('themeToggle');
