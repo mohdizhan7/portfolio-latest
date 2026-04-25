@@ -629,6 +629,10 @@
     animation: none;
   }
 
+  .exp__item.is-visible:nth-child(1) { animation-delay: none; }
+  .exp__item.is-visible:nth-child(2) { animation-delay: none; }
+  .exp__item.is-visible:nth-child(3) { animation-delay: none; }
+  .exp__item.is-visible:nth-child(4) { animation-delay: none; }
 
   .exp__item.is-expanded { background: var(--bg-card); transition: background 0.2s; }
 
@@ -675,9 +679,15 @@
     flex-shrink: 0;
     width: 80px;
     margin: 20px 28px 20px 0;
+    will-change: width;
+    transition: width 0.38s cubic-bezier(0.4,0,0.2,1),
+                margin 0.38s cubic-bezier(0.4,0,0.2,1);
   }
 
-
+  .exp__item.is-expanded .exp__image-wrap {
+    width: 220px;
+    margin: 28px 36px 28px 0;
+  }
 
   .exp__image {
     width: 100%;
@@ -689,7 +699,8 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: border-color 0.2s;
+    transition: aspect-ratio 0.38s cubic-bezier(0.4,0,0.2,1),
+                border-color 0.2s;
   }
 
   .exp__image img {
@@ -715,7 +726,7 @@
     transition: padding 0.38s cubic-bezier(0.4,0,0.2,1);
   }
 
-
+  .exp__item.is-expanded .exp__content { padding: 28px 0; }
 
   .exp__header {
     display: flex;
@@ -753,7 +764,7 @@
     display: grid;
     grid-template-rows: 0fr;
     will-change: grid-template-rows;
-    transition: grid-template-rows 0.28s cubic-bezier(0.4,0,0.2,1);
+    transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     margin-top: 0;
   }
 
@@ -769,8 +780,8 @@
     gap: 16px 32px;
     opacity: 0;
     transform: translateY(6px);
-    transition: opacity 0.2s ease 0.05s,
-                transform 0.2s ease 0.05s;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
   }
 
   .exp__item.is-expanded .exp__expand-inner {
@@ -1480,12 +1491,6 @@
   <div class="loader__label" id="loaderLabel">Loading</div>
 </div>
 
-  <div class="loader__track">
-    <div class="loader__progress" id="loaderProgress"></div>
-  </div>
-  <div class="loader__status" id="loaderStatus">Loading</div>
-</div>
-
 <div class="scroll-bar"></div>
 
 <nav>
@@ -1500,7 +1505,7 @@
   </div>
   <div class="nav__actions">
     <!-- CV icon -->
-    <a href="Resume_Izhan.pdf" target="_blank" rel="noreferrer" class="nav__icon" title="View CV">
+    <a href="resume/Resume_Izhan-2%20(1).pdf" target="_blank" rel="noreferrer" class="nav__icon" title="View CV">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
         <polyline points="14 2 14 8 20 8"></polyline>
@@ -2072,7 +2077,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 
   /* ── Loading screen ── */
   ;(function() {
