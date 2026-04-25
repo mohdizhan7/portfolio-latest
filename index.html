@@ -8,10 +8,10 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 <style>
-  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-800.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: block; }
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: block; }
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: block; }
+  @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-800.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: block; }
 </style>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -2211,8 +2211,9 @@
   }, { passive: true });
 
   // ===== SMOOTH & FLUID ANIMATION SYSTEM =====
-  // Single unified system for all scroll animations
-  
+  // Wait for fonts before starting — prevents layout shift on Vercel
+  document.fonts.ready.then(() => {
+
   const animationConfig = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -2385,6 +2386,8 @@
   } catch(e) {
     console.error('Smooth scroll init error:', e);
   }
+
+  }); // end document.fonts.ready
 
   // ═══════════════════════════════════════════════════════════════════════════════
   // GLOBAL ERROR HANDLING
